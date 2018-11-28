@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{ENGR114-Lab06-Taylor\_Series}
+    \title{ENGR114-Lab07-Taylor\_Series}
     
     
     
@@ -280,77 +280,79 @@
     
 
     
-    \section{ENGR114 - Lab 06 - Taylor
-Series}\label{engr114---lab-06---taylor-series}
+    \section{ENGR114 - Lab 07 - Taylor
+Series}\label{engr114---lab-07---taylor-series}
 
-In this lab, you will create a function that calculates the Taylor
-Series of two mathematical functions. A Taylor Series is an infinite
-series of mathematical terms that when summed together approximate a
-mathematical function. Taylor Series can be used to approximate \(e^x\),
-\(sine\), and \(cosine\). An example of a Taylor series is below:
+In this lab, you will create a Python function that calculates the
+\emph{Taylor Series} of two mathematical functions. A Taylor Series is
+an infinite series of mathematical terms that when summed together
+approximate a mathematical function. A Taylor Series can be used to
+approximate \(e^x\), \(sine\), and \(cosine\).
+
+An example of a Taylor Series is below:
 
 \[  \cos \left( x \right) = \sum\limits_{n = 0}^\infty  {{{\left( { - 1} \right)}^n}\frac{{{x^{2n}}}}{{\left( {2n} \right)!}}}  = 1 - \frac{{{x^2}}}{{2!}} + \frac{{{x^4}}}{{4!}} - \frac{{{x^6}}}{{6!}} + \frac{{{x^8}}}{{8!}} - \frac{{{x^{10}}}}{{10!}} + \ ... \]
 
     \subsection{Pre-Lab}\label{pre-lab}
 
-Before starting your script, read through this entire document, then
-create a pseudocode flowchart of what your program will do using the
-standard flow chart symbols: oval, rectangle, diamond and parallelogram.
+Before starting this lab, read through this entire document. Create a
+pseudocode flowchart of what your program will do using the standard
+flow chart symbols: oval, rectangle, diamond and parallelogram.
 
     \subsection{Lab}\label{lab}
 
-Create a new m-file called \textbf{taylor\_series.py} that will contain
-a user-defined function \textbf{taylor()}. The \textbf{taylor()}
-function will have the function name, inputs, outputs, and \textbf{help}
-command information as shown.
+Create a new Python script called \textbf{taylor\_series.py} which will
+contain a user-defined function called \texttt{taylor()}. The
+\texttt{taylor()} function will have the function name, inputs, outputs
+and doc string information as shown.
 
 \begin{verbatim}
 def taylor(func, x, terms):
 """
-Performs the Taylor series expansion for either the sine of x or
-for Euler's number raised to x.  The taylor() function returns the taylor series approximation of sin(x) or e^(x) with an optional number of terms.
+Performs the Taylor series expansion for either the sine of x or for Euler's number raised to x. 
+The taylor() function returns the taylor series approximation of sin(x) or e^(x) with an optional number of terms.
  
  Input:
-     - func: A string describing which function to do the Taylor 
-           series expansion on.  ('sin' for sine(x), 'exp' for e^x)
-     - x: Input argument that the function will operate on.  Must be a float or an int between -50 and 50
-     - terms: number of terms in the taylor series. Must be an int greater than zero up to an including 100.
+     - func: A string describing which function to to calculate the Taylor 
+           series expansion of.  ('sin' for sine(x), 'exp' for e^x)
+     - x: Input argument that the function will operate on.  Must be a float or an integer between -50 and 50
+     - terms: number of terms in the Taylor Series. Must be an int greater than zero up to and including 100.
+              Defaults to 10. Has to be an integer between 1 and 50.
  
  Output:
-     - series_sum: equals the sum of all of the terms in the taylor series up to the number of terms specified.
-       Will be a float
+     - series_sum: equals the sum of all of the terms in the Taylor Series up to the number of terms specified.
+       Will be a float.
 
 """
 \end{verbatim}
 
-Underneath the docstring above, include a block comment with your name,
-the date, and the lab assignment number.
+Above the function definition, include a block comment (using
+\texttt{\#}) with the lab title, your name, course, quarter, and date.
 
-Underneath the comment block, create a function that fulfills the given
-description.
+Underneath the comment block, create the \texttt{taylor()} function that
+fulfills the description below.
 
 Your function should verify that all three of its input variables have
-values as specified in the description, otherwise, use the
-\textbf{error} command to tell the user which variable is invalid and
-give the constraints.
+values as specified in the description, otherwise, use an
+\texttt{if:\ raise\ Exception()} structure to tell the user which
+variable is invalid and give the constraints.
 
-For example, if a user tries to call the function with \textbf{x} set
-equal to -60, this should trigger the following command.
+For example, if a user tries to call the function with \texttt{x} set
+equal to -60, the following exception is triggered.
 
 \begin{verbatim}
-     error('x must be $>= -50$ and $<= 50$')
+if x > 50:
+    raise Exception('x should not exceed 50')
 \end{verbatim}
 
-Your function can use a \textbf{while loop}, or a \textbf{for loop} to
-verify the inputs of the \textbf{func} variable.
-
-    The Taylor series for our two functions are below:
+    The Taylor Series expansion for our two functions \(e^x\) and
+\(\sin(x)\) are below:
 
 \[  {e^x} = \sum\limits_{n = 0}^\infty  {\frac{{{x^n}}}{{n!}}}  = 1 + x + \frac{{{x^2}}}{{2!}} + \frac{{{x^3}}}{{3!}} + \frac{{{x^4}}}{{4!}} + ... \]
 
 \[ \sin \left( x \right) = \sum\limits_{n = 0}^\infty  {{{\left( { - 1} \right)}^n}\frac{{{x^{2n + 1}}}}{{\left( {2n + 1} \right)!}}}  = x - \frac{{{x^3}}}{{3!}} + \frac{{{x^5}}}{{5!}} - \frac{{{x^7}}}{{7!}} + \frac{{{x^9}}}{{9!}} - ... \]
 
-    Note that as \textbf{n} increases, each successive term gets smaller in
+    Note that as \(n\) increases, each successive term gets smaller in
 absolute value. Knowing this, we can assert that if, for instance, the
 \(10^{th}\) term in a Taylor series is 0.005, then 10 iterations of the
 function will bring the sum of terms 1 through 10 to be within +/- 0.005
@@ -358,19 +360,17 @@ of the actual answer. In other words, 10 iterations yields an answer
 that has an error with absolute value of 0.005 or less.
 
 Your function should use a \textbf{while loop} or \textbf{for loop} to
-compute each of these terms until the latest term's absolute value is
-equal to or less than \textbf{error\_ub}. If/when the latest term in the
-Taylor series is within this boundary, use an \textbf{if break}
-statement to exit the \textbf{while loop}. Otherwise, the \textbf{while
-loop} should keep running until it has been run \textbf{max\_iters}
-times.
+compute and sum each of these terms. After the last term in the Taylor
+Series is calculated and added, use an \textbf{if break} statement to
+exit the \textbf{loop}. Otherwise, the \textbf{loop} should keep running
+until it has been run \(n\) times.
 
-    Note that your \textbf{taylor()} function will not compute the exact
-value of \(sin(x)\) or \(e^x\), the Taylor Series to a finite number of
-terms is an estimate compared to the actual value of \(sin(x)\) or
+    Note that your \texttt{taylor()} function will not compute the exact
+value of \(\sin(x)\) or \(e^x\), the Taylor Series to a finite number of
+terms is an estimate compared to the actual value of \(\sin(x)\) or
 \(e^x\).
 
-You might find the following tips somewhat helpful:
+Below are a couple of tips to help you complete the lab:
 
 \begin{itemize}
 \tightlist
@@ -379,34 +379,33 @@ You might find the following tips somewhat helpful:
   with hard coded input values. This way you can easily run and re-run
   it for testing.
 \item
-  Get either the \(e^x\) or the \(sin(x)\) capability working before
+  Get either the \(e^x\) or the \(\sin(x)\) capability working before
   adding the other capability.
 \item
-  Once both of these capabilities are working, do the input validation
-  for all of the input variables.
+  Once both of these capabilities are working, complete the input
+  validation for all of the input variables.
 \item
   Test your code often!
 \item
   Wait until you have verified your function works, along with its input
   validation, before changing it into a function.
 \item
-  Now call your function \textbf{taylor()} from within the
+  Now call your function \texttt{taylor()} from within the
   \textbf{taylor\_series.py} file . It is easier to change values and
   re-run this way, versus importing the function and calling
-  \textbf{\textgreater{}\textgreater{}\textgreater{}taylor()} from the
-  Python REPL.
+  \texttt{\textgreater{}\textgreater{}\textgreater{}taylor(\textquotesingle{}sin\textquotesingle{},4,10)}
+  from the Python REPL.
 \item
-  Verify your results. Compare the results of adding the Taylor Series
-  terms to Python's \textbf{math} module functions \texttt{math.exp()}
-  and \texttt{math.sin()}.
+  Verify your results. Compare the results of you Taylor Series function
+  to Python's \textbf{math} module functions \texttt{math.exp()} and
+  \texttt{math.sin()}.
 \end{itemize}
 
-    Your instructor may provide some sample output file called
-\textbf{ENGR114-Lab06-sample\_output.txt}.
+    \subsection{Deliverables}\label{deliverables}
 
 Once you are satisfied that your file meets all the requirements,
-suppress all screen output, save the file, and submit it to appropriate
-D2L folder.
+suppress all screen output, save your \textbf{lab7.py} file, and submit
+it to appropriate D2L folder.
 
     \paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
 College,
