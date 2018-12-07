@@ -216,6 +216,19 @@ Read the Docs
 config.rst
 
 /.project
+
+
 /.pydevproject
 
 package-lock.json
+
+## TeX Works
+.aux
+.bbl
+.blg
+.log
+.out
+.synctex.gz
+.toc
+.pdf
+
