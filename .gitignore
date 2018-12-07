@@ -223,12 +223,12 @@ config.rst
 package-lock.json
 
 ## TeX Works
-.aux
-.bbl
-.blg
-.log
-.out
-.synctex.gz
-.toc
-.pdf
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.pdf
 
