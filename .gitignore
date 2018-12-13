@@ -255,3 +255,6 @@ package-lock.json
 *.eps
 *.pdf
 
+# PyCharm .idea folder
+.idea/
+
