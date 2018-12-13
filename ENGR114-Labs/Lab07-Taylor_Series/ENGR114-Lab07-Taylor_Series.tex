@@ -91,7 +91,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab02 Sifting Weather Data} 
+\newcommand{\labtitle}{Lab07 Taylor Series} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -343,221 +343,141 @@
     
 
     
-    \hypertarget{lab-02---sifting-weather-data}{%
-\section{Lab 02 - Sifting Weather
-Data}\label{lab-02---sifting-weather-data}}
+    \hypertarget{engr114---lab-07---taylor-series}{%
+\section{ENGR114 - Lab 07 - Taylor
+Series}\label{engr114---lab-07---taylor-series}}
 
-    \hypertarget{prelab}{%
-\subsection{Prelab}\label{prelab}}
+In this lab, you will create a Python function that calculates the
+\emph{Taylor Series} of two mathematical functions. A Taylor Series is
+an infinite series of mathematical terms that when summed together
+approximate a mathematical function. A Taylor Series can be used to
+approximate \(e^x\), \(sine\), and \(cosine\).
 
-Complete Example 3.3 (p.~89) from the textbook. Coding this example will
-help you with the lab assignment. You can find the relevant .xlsx-file
-posted along with these lab instructions on D2L. After completing
-Example 3.3, save your script in a Jupyter notebook. Your work
-completing Example 3.3 does not need to be submitted for credit.
+An example of a Taylor Series is below:
+
+\[  \cos \left( x \right) = \sum\limits_{n = 0}^\infty  {{{\left( { - 1} \right)}^n}\frac{{{x^{2n}}}}{{\left( {2n} \right)!}}}  = 1 - \frac{{{x^2}}}{{2!}} + \frac{{{x^4}}}{{4!}} - \frac{{{x^6}}}{{6!}} + \frac{{{x^8}}}{{8!}} - \frac{{{x^{10}}}}{{10!}} + \ ... \]
+
+    \hypertarget{pre-lab}{%
+\subsection{Pre-Lab}\label{pre-lab}}
+
+Before starting this lab, read through this entire document. Create a
+pseudocode flowchart of what your program will do using the standard
+flow chart symbols: oval, rectangle, diamond and parallelogram.
 
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
-Import the weather data from the from the
-\texttt{weather\textbackslash{}\_data.xls} file into a Panda's dataframe
-called \texttt{wdf}. This time, the dataframe will contain a couple
-values equal to \texttt{-99999}. Transpose the data (as done in Example
-3.3) so the data for each month is in columns. Save the transposed
-dataframe to the varaiable \texttt{df}. Complete these steps using the
-follwoing commands.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{wdf }\OperatorTok{=}\NormalTok{ pd.read_excel(}\StringTok{'weather_data.xlsx'}\NormalTok{, header}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ wdf.transpose()}
-\end{Highlighting}
-\end{Shaded}
-
-    Search the Pandas pacakge documentation help section to see how to use
-the \texttt{pd.read\_excel()} function words and why we need the keyword
-argument \texttt{header=None} in this example.
-
-Note: the .xlsx-file must be in your current file path, and quotes need
-to surround the file name.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{wdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
-        \PY{n}{df} \PY{o}{=} \PY{n}{wdf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    Afterwards, running \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 31 rows x 12 columns. Also check the value
-in row 0, column 3 in the dataframe is \texttt{260} by running the
-\texttt{df.head()} method.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
-        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(31, 12)
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}     0    1   2    3   4   5   6   7   8    9    10  11
-        0    0   61   2  260  47   0   0   0   0    0    1   0
-        1    0  103   0    1   0   0   0  45   0    0  163   0
-        2  272    0  17    0   0  30   0   0   0    0    5   0
-        3    0    2  27    0   0  42   0   0   0   14    0   0
-        4    0    0   0    0   5   0   0   0   0  156    0   0
-\end{Verbatim}
-            
-    Use the following line to change all of the values in the ndataframe
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number).
+Create a new Python script called \textbf{taylor\_series.py} which will
+contain a user-defined function called \texttt{taylor()}. The
+\texttt{taylor()} function will have the function name, inputs, outputs
+and doc string information as shown.
 
 \begin{verbatim}
-df[df==-99999]=np.nan
+def taylor(func, x, terms):
+"""
+Performs the Taylor series expansion for either the sine of x or for Euler's number raised to x. 
+The taylor() function returns the taylor series approximation of sin(x) or e^(x) with an optional number of terms.
+ 
+ Input:
+     - func: A string describing which function to to calculate the Taylor 
+           series expansion of.  ('sin' for sine(x), 'exp' for e^x)
+     - x: Input argument that the function will operate on.  Must be a float or an integer between -50 and 50
+     - terms: number of terms in the Taylor Series. Must be an int greater than zero up to and including 100.
+              Defaults to 10. Has to be an integer between 1 and 50.
+ 
+ Output:
+     - series_sum: equals the sum of all of the terms in the Taylor Series up to the number of terms specified.
+       Will be a float.
+
+"""
 \end{verbatim}
 
-Use the \texttt{df.tail()} method to view the last few rows in the
-dataframe. We see row 30, column 5 has the value `\texttt{NaN} (not a
-number).
+Above the function definition, include a block comment (using
+\texttt{\#}) with the lab title, your name, course, quarter, and date.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99999}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
-         \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+Underneath the comment block, create the \texttt{taylor()} function that
+fulfills the description below.
 
+Your function should verify that all three of its input variables have
+values as specified in the description, otherwise, use an
+\texttt{if:\ raise\ Exception()} structure to tell the user which
+variable is invalid and give the constraints.
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:}     0     1   2     3   4     5   6   7      8   9    10  11
-         26   0   0.0  78  35.0   2  35.0   0   0    6.0   0  2.0   0
-         27   0  62.0   0  13.0   0  14.0   5   0  138.0   0  0.0   0
-         28   0   NaN   5  86.0   0  14.0   0   0   58.0   0  0.0   0
-         29  33   NaN   8   0.0   0   8.0   0   0   10.0   0  0.0   0
-         30  33   NaN   0   NaN   0   NaN   0   0    NaN   1  NaN   0
-\end{Verbatim}
-            
-    By completing Example 3.3, you know the data in the excel file
-represents rainfall in \emph{hundredths of an inch}, but for brevity's
-sake, this lab will treat the data as if it were rainfall in
-\emph{inches}. There is no need to change or scale the data before
-further processing.
+For example, if a user tries to call the function with \texttt{x} set
+equal to -60, the following exception is triggered.
 
-Define a variable called \texttt{month} and set it equal to \texttt{1}
-for now. This will represent the month for which we will compute
-statistics. Later, you will change \texttt{month} to other values.
-\texttt{0} means January, \texttt{1} means February, and so on.
+\begin{verbatim}
+if x > 50:
+    raise Exception('x should not exceed 50')
+\end{verbatim}
 
-Use the value in \texttt{month} to extract that month's data from your
-\texttt{wd} dataframe. Store these values in a new list called
-\texttt{m}. Because January has 31 days, you only see values in
-\textbf{m} that are positive or zero (no values of -99999 ). Since
-February has 28 days, you will see positive numbers, zeros and
-\texttt{NaN} present in the list.
+    The Taylor Series expansion for our two functions \(e^x\) and
+\(\sin(x)\) are below:
 
-For example, according to our data, the rainfall for the first 3 days in
-January are 0 inches, 0 inches, and 272 inches. The average rain fall
-per day in the first 3 days of January is 90.667. The average rain fall
-for the days of January 2nd and 3rd is 136.
+\[  {e^x} = \sum\limits_{n = 0}^\infty  {\frac{{{x^n}}}{{n!}}}  = 1 + x + \frac{{{x^2}}}{{2!}} + \frac{{{x^3}}}{{3!}} + \frac{{{x^4}}}{{4!}} + ... \]
 
-    Compute and store the following statistics/properties of the data in the
-dataframe \texttt{df1} in variables named as follows:
+\[ \sin \left( x \right) = \sum\limits_{n = 0}^\infty  {{{\left( { - 1} \right)}^n}\frac{{{x^{2n + 1}}}}{{\left( {2n + 1} \right)!}}}  = x - \frac{{{x^3}}}{{3!}} + \frac{{{x^5}}}{{5!}} - \frac{{{x^7}}}{{7!}} + \frac{{{x^9}}}{{9!}} - ... \]
+
+    Note that as \(n\) increases, each successive term gets smaller in
+absolute value. Knowing this, we can assert that if, for instance, the
+\(10^{th}\) term in a Taylor series is 0.005, then 10 iterations of the
+function will bring the sum of terms 1 through 10 to be within +/- 0.005
+of the actual answer. In other words, 10 iterations yields an answer
+that has an error with absolute value of 0.005 or less.
+
+Your function should use a \textbf{while loop} or \textbf{for loop} to
+compute and sum each of these terms. After the last term in the Taylor
+Series is calculated and added, use an \textbf{if break} statement to
+exit the \textbf{loop}. Otherwise, the \textbf{loop} should keep running
+until it has been run \(n\) times.
+
+    Note that your \texttt{taylor()} function will not compute the exact
+value of \(\sin(x)\) or \(e^x\), the Taylor Series to a finite number of
+terms is an estimate compared to the actual value of \(\sin(x)\) or
+\(e^x\).
+
+Below are a couple of tips to help you complete the lab:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{m\_avg}: average inches fallen in month \texttt{m}
+  Start working with your .py-file as a regular script (not a function)
+  with hard coded input values. This way you can easily run and re-run
+  it for testing.
 \item
-  \texttt{m\_max}: maximum inches fallen in month \texttt{m}
+  Get either the \(e^x\) or the \(\sin(x)\) capability working before
+  adding the other capability.
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
-  inches fell
+  Once both of these capabilities are working, complete the input
+  validation for all of the input variables.
 \item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
-  inches fell
+  Test your code often!
 \item
-  \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
+  Wait until you have verified your function works, along with its input
+  validation, before changing it into a function.
 \item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
-  rain fell
+  Now call your function \texttt{taylor()} from within the
+  \textbf{taylor\_series.py} file . It is easier to change values and
+  re-run this way, versus importing the function and calling
+  \texttt{\textgreater{}\textgreater{}\textgreater{}taylor(\textquotesingle{}sin\textquotesingle{},4,10)}
+  from the Python REPL.
 \item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
-  least some rain fell\\
-\item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
-  rain fell
+  Verify your results. Compare the results of you Taylor Series function
+  to Python's \textbf{math} module functions \texttt{math.exp()} and
+  \texttt{math.sin()}.
 \end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
-         
-         \PY{n}{m\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}avg}\PY{p}{)}
-         
-         \PY{n}{m\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         
-         \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{n}{m\PYZus{}max}\PY{p}{]}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}zero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{nd\PYZus{}zero}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}nonzero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}nonzero}\PY{p}{)}
-         
-         \PY{n}{df\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
-         \PY{n}{pos\PYZus{}rain\PYZus{}lst} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{p}{]}
-         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{pos\PYZus{}rain\PYZus{}lst}\PY{p}{)}
-\end{Verbatim}
+    \hypertarget{deliverables}{%
+\subsection{Deliverables}\label{deliverables}}
 
+Once you are satisfied that your file meets all the requirements,
+suppress all screen output, save your \textbf{lab7.py} file, and submit
+it to appropriate D2L folder.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-18.392857142857142
-135.0
-17
-1
-14
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}49}]:} 36.785714285714285
-\end{Verbatim}
-            
-    Test all of your values for the month of January manually to make sure
-they are correct.
-
-Run your script for the February data (\texttt{m=1}) and check the
-results against manual calculations for that month.
-
-You may wish to test your script against other month's data. When you
-are convinced your results and variable names are correct, Restart the
-notebook Kernal and clear all output. Run each cell one last time and
-ensure the script is error free.
-
-For your own records, save your lab2.ipnb file and your
-\texttt{weather\_data.xlsx} file to the same directory. You do not need
-to submit your \texttt{weather\textbackslash{}\_data.xlsx} file because
-your instructor will have their own copy to test your script.
-
-    \hypertarget{deliverable}{%
-\subsection{Deliverable}\label{deliverable}}
-
-One .ipynb-file with output all cells run. The .ipynb-file should run
-without errors. Uploaded the .ipynb file to D2L by the end of the lab
-period.
-
-    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}{%
-\paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
-Portland Community College,
-2018}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2018}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}}
+    \hypertarget{by-p.-kazarinoff-portland-community-college-2018}{%
+\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
+College,
+2018}}{By P. Kazarinoff, Portland Community College, 2018}}\label{by-p.-kazarinoff-portland-community-college-2018}}
 
 
     % Add a bibliography block to the postdoc

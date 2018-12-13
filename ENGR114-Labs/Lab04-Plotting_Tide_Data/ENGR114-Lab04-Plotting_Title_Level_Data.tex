@@ -26,7 +26,7 @@
 \definecolor{shadecolor}{rgb}{.8,.8,.8}
 \usepackage{titlesec}
 % no indent on any paragraphs, vertical spacing between paragraphs is set to 1em
-\usepackage[]{parskip}
+\usepackage[]{parskip}  % add [skip=1em] if the compiler will allow.
 
 % for MATLAB syntax highlighting
 \usepackage{listings}             % Include the listings-package
@@ -606,7 +606,7 @@ first line plot.
     ----> 4 ax2.plot(hours,df16['water\_level'])
           5 ax3.plot(hours,df17['water\_level'])
           6 ax4.plot(hours,df18['water\_level'])
-
+    
 
         NameError: name 'df16' is not defined
 

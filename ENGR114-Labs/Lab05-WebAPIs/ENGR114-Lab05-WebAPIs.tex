@@ -91,7 +91,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab02 Sifting Weather Data} 
+\newcommand{\labtitle}{Lab05 WebAPIs} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -343,221 +343,169 @@
     
 
     
-    \hypertarget{lab-02---sifting-weather-data}{%
-\section{Lab 02 - Sifting Weather
-Data}\label{lab-02---sifting-weather-data}}
+    \hypertarget{lab-06---web-apis}{%
+\section{Lab 06 - Web API's}\label{lab-06---web-apis}}
 
     \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
-Complete Example 3.3 (p.~89) from the textbook. Coding this example will
-help you with the lab assignment. You can find the relevant .xlsx-file
-posted along with these lab instructions on D2L. After completing
-Example 3.3, save your script in a Jupyter notebook. Your work
-completing Example 3.3 does not need to be submitted for credit.
+Before starting the lab, read through this entire document. Then review
+the concept of a web API. Go to https://thingspeak.com/pages/learn\_more
+and read up on the concept of the Internet of Things (IoT) and how
+Thingspeak.com is related to IoT. Browse to the public weather station
+in Natick, MA at Mathwork's Headquarters (the company that makes MATLAB)
+at https://thingspeak.com/channels/12397. This is the IoT device we will
+interact with using a web API.
 
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
-Import the weather data from the from the
-\texttt{weather\textbackslash{}\_data.xls} file into a Panda's dataframe
-called \texttt{wdf}. This time, the dataframe will contain a couple
-values equal to \texttt{-99999}. Transpose the data (as done in Example
-3.3) so the data for each month is in columns. Save the transposed
-dataframe to the varaiable \texttt{df}. Complete these steps using the
-follwoing commands.
+For this group lab assignment, your group will use Python to interact
+with a web API to dynamically collect weather information from a Natick,
+MA weather station and display it to the user. The program will ask the
+user if they want to plot temperature, humidity, rainfall or pressure.
+Then the program will ask the user for the number of data points they
+want to plot. Finally, the program will produce a plot of the selected
+weather data from the Natick, MA weather station.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{wdf }\OperatorTok{=}\NormalTok{ pd.read_excel(}\StringTok{'weather_data.xlsx'}\NormalTok{, header}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ wdf.transpose()}
-\end{Highlighting}
-\end{Shaded}
+    \hypertarget{example-of-final-functionality}{%
+\subsubsection{Example of Final
+Functionality}\label{example-of-final-functionality}}
 
-    Search the Pandas pacakge documentation help section to see how to use
-the \texttt{pd.read\_excel()} function words and why we need the keyword
-argument \texttt{header=None} in this example.
-
-Note: the .xlsx-file must be in your current file path, and quotes need
-to surround the file name.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{wdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
-        \PY{n}{df} \PY{o}{=} \PY{n}{wdf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    Afterwards, running \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 31 rows x 12 columns. Also check the value
-in row 0, column 3 in the dataframe is \texttt{260} by running the
-\texttt{df.head()} method.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
-        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(31, 12)
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}     0    1   2    3   4   5   6   7   8    9    10  11
-        0    0   61   2  260  47   0   0   0   0    0    1   0
-        1    0  103   0    1   0   0   0  45   0    0  163   0
-        2  272    0  17    0   0  30   0   0   0    0    5   0
-        3    0    2  27    0   0  42   0   0   0   14    0   0
-        4    0    0   0    0   5   0   0   0   0  156    0   0
-\end{Verbatim}
-            
-    Use the following line to change all of the values in the ndataframe
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number).
+Below is an example of how the final lab7.py script will work:
 
 \begin{verbatim}
-df[df==-99999]=np.nan
+
+Which weather type (temperature, humidity, rainfall or pressure)? temperature
+
+How many data points (maximum of 8000)? 800
 \end{verbatim}
 
-Use the \texttt{df.tail()} method to view the last few rows in the
-dataframe. We see row 30, column 5 has the value `\texttt{NaN} (not a
-number).
+\begin{figure}
+\centering
+\includegraphics{images/plot_of_weather_data.png}
+\caption{Plot of Temperature}
+\end{figure}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99999}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
-         \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    \hypertarget{outline-of-steps}{%
+\subsubsection{Outline of steps}\label{outline-of-steps}}
 
+In order for you to accomplish this task, your code will need to do a
+couple of things: * Validate the user input so that the user can only
+select certain options: * Weather data types: temperature, humidity,
+pressure or rainfall * Number of data points: maximum of 8000, minimum
+of 1, integers only * Call the ThingSpeak web API to import the data
+from the weather station in Natick, MA. * Clean up the data received
+from the ThingSpeak web API and produce a simple 1D array or series
+which contains the data points. * Build a plot that displays the data
+the user asked for. The plot should contain the data point number on the
+x-axis and the weather data on the y-axis. Include axis labels (with
+units) and a descriptive title.
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:}     0     1   2     3   4     5   6   7      8   9    10  11
-         26   0   0.0  78  35.0   2  35.0   0   0    6.0   0  2.0   0
-         27   0  62.0   0  13.0   0  14.0   5   0  138.0   0  0.0   0
-         28   0   NaN   5  86.0   0  14.0   0   0   58.0   0  0.0   0
-         29  33   NaN   8   0.0   0   8.0   0   0   10.0   0  0.0   0
-         30  33   NaN   0   NaN   0   NaN   0   0    NaN   1  NaN   0
-\end{Verbatim}
-            
-    By completing Example 3.3, you know the data in the excel file
-represents rainfall in \emph{hundredths of an inch}, but for brevity's
-sake, this lab will treat the data as if it were rainfall in
-\emph{inches}. There is no need to change or scale the data before
-further processing.
+    \hypertarget{functions}{%
+\subsubsection{Functions}\label{functions}}
 
-Define a variable called \texttt{month} and set it equal to \texttt{1}
-for now. This will represent the month for which we will compute
-statistics. Later, you will change \texttt{month} to other values.
-\texttt{0} means January, \texttt{1} means February, and so on.
+You will accomplish this task in a group. Each group member is
+responsible for creating one of four functions:
 
-Use the value in \texttt{month} to extract that month's data from your
-\texttt{wd} dataframe. Store these values in a new list called
-\texttt{m}. Because January has 31 days, you only see values in
-\textbf{m} that are positive or zero (no values of -99999 ). Since
-February has 28 days, you will see positive numbers, zeros and
-\texttt{NaN} present in the list.
+\hypertarget{user_input-function}{%
+\paragraph{user\_input() function}\label{user_input-function}}
 
-For example, according to our data, the rainfall for the first 3 days in
-January are 0 inches, 0 inches, and 272 inches. The average rain fall
-per day in the first 3 days of January is 90.667. The average rain fall
-for the days of January 2nd and 3rd is 136.
+\texttt{user\_input()} A function to gather user input and validate it.
+The input of this function will be null (), as the requests for user
+input will come from within the body of the function. Include error
+checking as part of the function. The output of the function will be a
+1D matrix used by the \texttt{call\_API()} function below.
 
-    Compute and store the following statistics/properties of the data in the
-dataframe \texttt{df1} in variables named as follows:
+\hypertarget{call_api-function}{%
+\paragraph{call\_API() function}\label{call_api-function}}
+
+\texttt{call\_API()} A function to call the ThingSpeak Web API to
+retrieve the desired weather data. See
+http://www.mathworks.com/help/thingspeak/get-channel-field-feed.html and
+Pandas \texttt{read\_csv()} function.
+
+An example web API call is:
+\texttt{df\ =\ pd.read\_csv(\textquotesingle{}https://api.thingspeak.com/channels/12397/fields/4.csv?results=20\textquotesingle{})}
+Only the desired weather data type and number of data points should be
+retrieved. Note the input for this function will come from the
+\texttt{user\_input()} function above and the output will be sent to the
+\texttt{clean\_data()} function below.
+
+\hypertarget{clean_data-function}{%
+\paragraph{clean\_data() function}\label{clean_data-function}}
+
+\texttt{clean\_data()} A function to clean up the data and simplify it
+to a 1D matrix. See the Pandas documentation for information on how to
+convert a column of a Panda's dataframe into a Python list or Numpy
+array. Try using: df =
+pd.read\_csv(`https://api.thingspeak.com/channels/12397/fields/4.csv?results=20')
+to bring in a sample data set. Note the input of this function comes
+from the \texttt{call\_API()} function above and the output needs to be
+a list or 1D array that will be used by the \texttt{plot\_data()}
+function below.
+
+\hypertarget{plot_datafunction}{%
+\paragraph{plot\_data()function}\label{plot_datafunction}}
+
+\texttt{plot\_data()} A function to plot the data. Data point number on
+the x-axis and the weather data on the y-axis. Axis labeled with units.
+Construct the title and y-axis labels dynamically as these will change
+based what the user selects. Note the input of this function will be a
+list or 1D array from the \texttt{clean\_data()} function above as well
+as some of the user input gathered by the \texttt{user\_input()}
+function. The output of this function will be a null (there will be no
+\texttt{return} statement, but within the body of the function, the plot
+will be called.
+
+    \hypertarget{final-notebook}{%
+\subsubsection{Final Notebook}\label{final-notebook}}
+
+After sharing the four functions among your group, each student needs to
+create their own notebook (.ipynb-file) that imports and calls the four
+functions and completes the programming task. The final notebook should
+be run, data entered and a plot produced.
+
+Your group will have to decide on a couple things:
 
 \begin{itemize}
-\tightlist
 \item
-  \texttt{m\_avg}: average inches fallen in month \texttt{m}
+  Who is going to construct each function?
 \item
-  \texttt{m\_max}: maximum inches fallen in month \texttt{m}
+  How will your group to share code?
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
-  inches fell
-\item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
-  inches fell
-\item
-  \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
-\item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
-  rain fell
-\item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
-  least some rain fell\\
-\item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
-  rain fell
+  What will be the standard function inputs and outputs? The output from
+  one function is needed as input for another function.
 \end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
-         
-         \PY{n}{m\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}avg}\PY{p}{)}
-         
-         \PY{n}{m\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         
-         \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{n}{m\PYZus{}max}\PY{p}{]}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}zero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{nd\PYZus{}zero}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}nonzero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}nonzero}\PY{p}{)}
-         
-         \PY{n}{df\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
-         \PY{n}{pos\PYZus{}rain\PYZus{}lst} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{p}{]}
-         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{pos\PYZus{}rain\PYZus{}lst}\PY{p}{)}
-\end{Verbatim}
+Ensure your functions contain doc string descriptions and examples.
+Ensure all the code is sectioned and commented.
 
+    \hypertarget{deliverables}{%
+\subsection{Deliverables}\label{deliverables}}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-18.392857142857142
-135.0
-17
-1
-14
+Each student's submissions for the lab must contain the following files
+(all four function files and your Python script that calls the four
+functions) regardless of which function you constructed. Upload these 5
+files to the D2L Lab 7 Uploads folder.
 
-    \end{Verbatim}
+\begin{itemize}
+\item
+  user\_input.py
+\item
+  call\_API.py
+\item
+  clean\_data.py
+\item
+  plot\_data.py
+\item
+  lab7.ipynb
+\end{itemize}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}49}]:} 36.785714285714285
-\end{Verbatim}
-            
-    Test all of your values for the month of January manually to make sure
-they are correct.
-
-Run your script for the February data (\texttt{m=1}) and check the
-results against manual calculations for that month.
-
-You may wish to test your script against other month's data. When you
-are convinced your results and variable names are correct, Restart the
-notebook Kernal and clear all output. Run each cell one last time and
-ensure the script is error free.
-
-For your own records, save your lab2.ipnb file and your
-\texttt{weather\_data.xlsx} file to the same directory. You do not need
-to submit your \texttt{weather\textbackslash{}\_data.xlsx} file because
-your instructor will have their own copy to test your script.
-
-    \hypertarget{deliverable}{%
-\subsection{Deliverable}\label{deliverable}}
-
-One .ipynb-file with output all cells run. The .ipynb-file should run
-without errors. Uploaded the .ipynb file to D2L by the end of the lab
-period.
-
-    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}{%
-\paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
-Portland Community College,
-2018}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2018}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}}
+    \hypertarget{by-p.-kazarinoff-portland-community-college-2018}{%
+\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
+College,
+2018}}{By P. Kazarinoff, Portland Community College, 2018}}\label{by-p.-kazarinoff-portland-community-college-2018}}
 
 
     % Add a bibliography block to the postdoc
