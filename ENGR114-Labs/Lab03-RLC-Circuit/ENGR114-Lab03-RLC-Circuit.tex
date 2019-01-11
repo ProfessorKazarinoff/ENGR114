@@ -91,7 +91,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab02 Sifting Weather Data} 
+\newcommand{\labtitle}{Lab03 RLC Circuit} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -352,234 +352,186 @@
     
 
     
-    \hypertarget{lab-02---sifting-weather-data}{%
-\section{Lab 02 - Sifting Weather
-Data}\label{lab-02---sifting-weather-data}}
+    \hypertarget{lab-03---rlc-circuit}{%
+\section{Lab 03 - RLC Circuit}\label{lab-03---rlc-circuit}}
 
     \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
-Complete Example 3.3 (p.~89) from the textbook. Coding this example will
-help you with the lab assignment. You can find the relevant .xlsx-file
-posted along with these lab instructions on D2L. After completing
-Example 3.3, save your script in a Jupyter notebook. Your work
-completing Example 3.3 does not need to be submitted for credit.
+Before starting this assignment, read through this entire document, then
+create a pseudocode outline of what your program will do. Simply put,
+pseudocode is committing the tasks your code will carry out to paper, in
+plain English. When writing pseudocode, you should not worry about how
+to write specific commands. Instead, set up an outline of specific
+things that need to be accomplished. This can take the form of a
+bulleted list, paragraphs of writing, or a flowchart. This in meant for
+you to read, not Python. The point of this is to think about what should
+happen without worrying about how. Be specific. You can start with a
+rough sketch, but you should refine it into smaller, explicit steps
+before beginning to code. Before asking for help with this lab, you
+should show your instructor your pseudocode.
 
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
-Import the weather data from the from the
-\texttt{weather\textbackslash{}\_data.xls} file into a Panda's dataframe
-called \texttt{wdf}. This time, the dataframe will contain a couple
-values equal to \texttt{-99999}. Transpose the data (as done in Example
-3.3) so the data for each month is in columns. Save the transposed
-dataframe to the varaiable \texttt{df}. Complete these steps using the
-follwoing commands.
+This lab will deal with the analysis of a series circuit with an AC
+voltage source, one resistor, one capacitor, and one inductor. You will
+not have to worry about the circuit analysis, as that part of will be
+done for you. The voltage source has a frequency of 60 hertz, it has an
+amplitude of 120 volts RMS, the resistor has 100 ohms of resistance. You
+need not care about these parameters because they will be built into the
+equations given to you later.
 
-\begin{Shaded}
+    The two parameters you do need to worry about are the component values
+for the inductor (\(L\)) and capacitor (\(C\)). Your script will perform
+numerical analysis to compute the power delivered to the resistor over
+varying values of both \(L\) and \(C\).
+
+    Create an array \texttt{L} whose values will start at 0.005 and go to
+0.245 in increments of 0.005. Then create an array \texttt{C} with 10
+evenly spaced values starting with \(5*10^{-6}\) and end with
+\(9.5*10^{-5}\).
+
+    Given a value for L and a value for C, the circuit's current can be
+calculated as follows:
+
+\[ \frac{{120}}{{100 + j2\pi \left( {60} \right)L - \frac{j}{{2\pi \left( {60} \right)C}}}} \]
+
+where \(j\) is the square root of negative one. This means current is a
+complex number. From a complex result for current, one can compute the
+power delivered to the resistor with the equation below.
+
+\[ P_R = 100{\left| I \right|^2} \]
+
+The absolute value symbol here \(\left| I \right|^2\) specifically means
+``the magnitude of I.'' There is a Python function that can compute this
+for complex numbers. For example, the smallest values for L and C that
+we will use should yield a complex current of
+\texttt{0.041458\ +\ 0.21916i}, and a resulting power of
+\texttt{4.9749}. Use Python's built-in value for \(\pi\) (included in
+the start file).
+
+    NumPy can handle complex numbers. In NumPy, \texttt{i} or \texttt{j} can
+be used as the square root of negative one. When typing \texttt{i} or
+\texttt{j}, it must be preceded by a number. For example, the complex
+number \(5 + j20\) should be entered as \texttt{5\ +\ 20j}.
+
+    Download the \textbf{lab2\_start\_file.py}, open the file and copy the
+code from \textbf{lab2\_start\_file.py} into a Jupyter notebook. Include
+your name, the date, the lab number, and the lab assignment title at the
+top in a markdown cell. Be sure to comment your code to explain to those
+reading it (which will be mostly future you) what each part or section
+of code is doing.
+
+    Map your \(L\) and \(C\) values to 2-dimensional arrays called
+\texttt{L\_mat} and \texttt{C\_mat} for use in computing a 2D matrix for
+circuit current. \texttt{L\_mat} should have increasing values from left
+to right. \texttt{C\_mat} should have increasing values from top to
+bottom.
+
+    Use \texttt{L\_mat} and \texttt{C\_mat} to compute complex values for
+circuit current \(I\), and use that result to calculate the \(P_{R}\)
+matrix and store it in a variable named \texttt{PR}. Your \texttt{PR}
+matrix now holds values of power (in watts) delivered to the resistor
+for every combination of inductor (\(L\)) and capacitor (\(C\)) values.
+Declare a new scalar variable \texttt{max\_PR} to store the largest
+value of power inside the \texttt{PR} matrix.
+
+    Use your results to report which specific value for \(L\) and value for
+\(C\) resulted in \texttt{max\_PR}. Store these two results in the
+variables \texttt{max\_L} and \texttt{max\_C}, respectively. NumPy's
+\texttt{np.where()} function should be instrumental here.
+
+    After you have computed your matrix of power values \texttt{PR}, create
+a surface plot of this 2D array. Code to plot \texttt{PR} should be
+supplied in the start file. We will not worry about how this code works.
+It is only meant to help you check your work. If you add the code below
+to your notebook and you calculated the correct values of \texttt{PR},
+you should get a plot that looks like the one below.
+
+    \begin{figure}
+\centering
+\includegraphics{images/surf_plot.png}
+\caption{Matplotlib surface plot}
+\end{figure}
+
+    \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{wdf }\OperatorTok{=}\NormalTok{ pd.read_excel(}\StringTok{'weather_data.xlsx'}\NormalTok{, header}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ wdf.transpose()}
+\CommentTok{# before you make the surface plot, you need to create L_mat, C_mat, and PR first.}
+\NormalTok{fig }\OperatorTok{=}\NormalTok{ plt.figure()}
+\NormalTok{ax }\OperatorTok{=}\NormalTok{ fig.gca(projection}\OperatorTok{=}\StringTok{'3d'}\NormalTok{)}
+\NormalTok{surf }\OperatorTok{=}\NormalTok{ ax.plot_surface(L_mat, C_mat, PR,}
+\NormalTok{                       cmap}\OperatorTok{=}\NormalTok{cm.coolwarm,}
+\NormalTok{                       linewidth}\OperatorTok{=}\DecValTok{0}\NormalTok{,}
+\NormalTok{                       antialiased}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{L'}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{C'}\NormalTok{)                       }
+\NormalTok{plt.savefig(}\StringTok{'out.png'}\NormalTok{, bbox_inches}\OperatorTok{=}\StringTok{'tight'}\NormalTok{)  }\CommentTok{# save to file}
 \end{Highlighting}
 \end{Shaded}
 
-    Search the Pandas pacakge documentation help section to see how to use
-the \texttt{pd.read\_excel()} function words and why we need the keyword
-argument \texttt{header=None} in this example.
-
-Note: the .xlsx-file must be in your current file path, and quotes need
-to surround the file name.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{wdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
-        \PY{n}{df} \PY{o}{=} \PY{n}{wdf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    Afterwards, running \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 31 rows x 12 columns. Also check the value
-in row 0, column 3 in the dataframe is \texttt{260} by running the
-\texttt{df.head()} method.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
-        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(31, 12)
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}     0    1   2    3   4   5   6   7   8    9    10  11
-        0    0   61   2  260  47   0   0   0   0    0    1   0
-        1    0  103   0    1   0   0   0  45   0    0  163   0
-        2  272    0  17    0   0  30   0   0   0    0    5   0
-        3    0    2  27    0   0  42   0   0   0   14    0   0
-        4    0    0   0    0   5   0   0   0   0  156    0   0
-\end{Verbatim}
-            
-    Use the following line to change all of the values in the ndataframe
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number).
-
-\begin{verbatim}
-df[df==-99999]=np.nan
-\end{verbatim}
-
-Use the \texttt{df.tail()} method to view the last few rows in the
-dataframe. We see row 30, column 5 has the value `\texttt{NaN} (not a
-number).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99999}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
-        \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}3}]:}     0     1   2     3   4     5   6   7      8   9    10  11
-        26   0   0.0  78  35.0   2  35.0   0   0    6.0   0  2.0   0
-        27   0  62.0   0  13.0   0  14.0   5   0  138.0   0  0.0   0
-        28   0   NaN   5  86.0   0  14.0   0   0   58.0   0  0.0   0
-        29  33   NaN   8   0.0   0   8.0   0   0   10.0   0  0.0   0
-        30  33   NaN   0   NaN   0   NaN   0   0    NaN   1  NaN   0
-\end{Verbatim}
-            
-    By completing Example 3.3, you know the data in the excel file
-represents rainfall in \emph{hundredths of an inch}, but for brevity's
-sake, this lab will treat the data as if it were rainfall in
-\emph{inches}. There is no need to change or scale the data before
-further processing.
-
-Define a variable called \texttt{month} and set it equal to \texttt{1}
-for now. This will represent the month for which we will compute
-statistics. Later, you will change \texttt{month} to other values.
-\texttt{0} means January, \texttt{1} means February, and so on.
-
-Use the value in \texttt{month} to extract that month's data from your
-\texttt{wd} dataframe. Store these values in a new list called
-\texttt{m}. Because January has 31 days, you only see values in
-\textbf{m} that are positive or zero (no values of -99999 ). Since
-February has 28 days, you will see positive numbers, zeros and
-\texttt{NaN} present in the list.
-
-For example, according to our data, the rainfall for the first 3 days in
-January are 0 inches, 0 inches, and 272 inches. The average rain fall
-per day in the first 3 days of January is 90.667. The average rain fall
-for the days of January 2nd and 3rd is 136.
-
-    Compute and store the following statistics/properties of the data in the
-dataframe \texttt{df1} in variables named as follows:
+    \hypertarget{topics-covered}{%
+\subsection{Topics Covered}\label{topics-covered}}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{m\_avg}: average inches fallen in month \texttt{m}
+  Plotting need not be covered before this lab, as the plotting code is
+  given to the students.
 \item
-  \texttt{m\_max}: maximum inches fallen in month \texttt{m}
+  Importing \texttt{pi} from Python's \texttt{math} module in the
+  Standard Library
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
-  inches fell
+  NumPy arrays
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{np.arange()}
+  \item
+    \texttt{np.linspace()}
+  \item
+    \texttt{np.meshgrid()}
+  \item
+    \texttt{np.where()}
+  \item
+    indexing arrays
+  \end{itemize}
 \item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
-  inches fell
+  Complex numbers in Python
 \item
-  \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
-\item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
-  rain fell
-\item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
-  least some rain fell\\
-\item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
-  rain fell
+  Python's built-in \texttt{abs()} function
 \end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
-        
-        \PY{n}{m\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}avg}\PY{p}{)}
-        
-        \PY{n}{m\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}max}\PY{p}{)}
-        
-        \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{n}{m\PYZus{}max}\PY{p}{]}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-        
-        \PY{n}{nd\PYZus{}zero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{n}{m\PYZus{}max}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nd\PYZus{}zero}\PY{p}{)}
-        
-        \PY{n}{nd\PYZus{}nonzero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}nonzero}\PY{p}{)}
-        
-        \PY{n}{df\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
-        \PY{n}{pos\PYZus{}rain\PYZus{}lst} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{p}{]}
-        \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{pos\PYZus{}rain\PYZus{}lst}\PY{p}{)}
-\end{Verbatim}
+    \hypertarget{deliverables}{%
+\subsection{Deliverables}\label{deliverables}}
 
+Each student's submission for the lab must contain the following file:
+\textbf{lab3.ipynb}. The submission should be a Jupyter notebook. Before
+submitting your Jupyter notebook, ensure you select Kernel
+--\textgreater{} Restart Kernel \& Run All, then save your notebook for
+a final time. The following will be evaluated:
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-18.392857142857142
-135.0
-17
-1
+\begin{itemize}
+\item
+  the file uploaded is a \textbf{.pynb} file
+\item
+  the file is a valid Jupyter notebook file and runs in a Jupyter
+  notebook when opened
+\item
+  the notebook runs with no errors
+\item
+  the correct value for \texttt{max\_PR},
+  \texttt{max\_L},\texttt{max\_C} are calculated
+\item
+  the 3D plot is produced and looks like the plot in the lab
+  instructions
+\end{itemize}
 
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        NameError                                 Traceback (most recent call last)
-
-        <ipython-input-4-505b45a0237c> in <module>()
-         14 
-         15 nd\_nonzero = sum(df[m]>0)
-    ---> 16 print(d\_nonzero)
-         17 
-         18 df\_list = list(df[m].values)
-    
-
-        NameError: name 'd\_nonzero' is not defined
-
-    \end{Verbatim}
-
-    Test all of your values for the month of January manually to make sure
-they are correct.
-
-Run your script for the February data (\texttt{m=1}) and check the
-results against manual calculations for that month.
-
-You may wish to test your script against other month's data. When you
-are convinced your results and variable names are correct, Restart the
-notebook Kernal and clear all output. Run each cell one last time and
-ensure the script is error free.
-
-For your own records, save your lab2.ipnb file and your
-\texttt{weather\_data.xlsx} file to the same directory. You do not need
-to submit your \texttt{weather\textbackslash{}\_data.xlsx} file because
-your instructor will have their own copy to test your script.
-
-    \hypertarget{deliverable}{%
-\subsection{Deliverable}\label{deliverable}}
-
-One .ipynb-file with output all cells run. The .ipynb-file should run
-without errors. Uploaded the .ipynb file to D2L by the end of the lab
-period.
-
-    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}{%
-\paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
+    \hypertarget{by-d.-kruger-modified-by-p.kazarinoff-portland-community-college-2019}{%
+\paragraph{\texorpdfstring{\emph{By D. Kruger, modified by P.Kazarinoff,
 Portland Community College,
-2018}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2018}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}}
+2019}}{By D. Kruger, modified by P.Kazarinoff, Portland Community College, 2019}}\label{by-d.-kruger-modified-by-p.kazarinoff-portland-community-college-2019}}
 
 
     % Add a bibliography block to the postdoc
