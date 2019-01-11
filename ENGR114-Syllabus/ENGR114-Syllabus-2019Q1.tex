@@ -91,7 +91,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab02 Sifting Weather Data} 
+\newcommand{\labtitle}{Syllabus 2019Q} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -352,219 +352,405 @@
     
 
     
-    \hypertarget{lab-02---sifting-weather-data}{%
-\section{Lab 02 - Sifting Weather
-Data}\label{lab-02---sifting-weather-data}}
+    \hypertarget{engr114-syllabus---winter-2019}{%
+\section{ENGR114 Syllabus - Winter
+2019}\label{engr114-syllabus---winter-2019}}
 
-    \hypertarget{prelab}{%
-\subsection{Prelab}\label{prelab}}
-
-You can find the relevant .xlsx-file posted along with these lab instructions on D2L. After completing
-the in-class example, save your script in a Jupyter notebook. Your work
-completing the in-class example does not need to be submitted for credit.
-
-    \hypertarget{lab}{%
-\subsection{Lab}\label{lab}}
-
-Import the weather data from the from the
-\texttt{weather\textbackslash{}\_data.xls} file into a Panda's dataframe
-called \texttt{wdf}. This time, the dataframe will contain a couple
-values equal to \texttt{-99999}. Transpose the data (as done in Example
-3.3) so the data for each month is in columns. Save the transposed
-dataframe to the varaiable \texttt{df}. Complete these steps using the
-follwoing commands.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{wdf }\OperatorTok{=}\NormalTok{ pd.read_excel(}\StringTok{'weather_data.xlsx'}\NormalTok{, header}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ wdf.transpose()}
-\end{Highlighting}
-\end{Shaded}
-
-    Search the Pandas pacakge documentation help section to see how to use
-the \texttt{pd.read\_excel()} function words and why we need the keyword
-argument \texttt{header=None} in this example.
-
-Note: the .xlsx-file must be in your current file path, and quotes need
-to surround the file name.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{wdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
-        \PY{n}{df} \PY{o}{=} \PY{n}{wdf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    Afterwards, running \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 31 rows x 12 columns. Also check the value
-in row 0, column 3 in the dataframe is \texttt{260} by running the
-\texttt{df.head()} method.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
-        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(31, 12)
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}     0    1   2    3   4   5   6   7   8    9    10  11
-        0    0   61   2  260  47   0   0   0   0    0    1   0
-        1    0  103   0    1   0   0   0  45   0    0  163   0
-        2  272    0  17    0   0  30   0   0   0    0    5   0
-        3    0    2  27    0   0  42   0   0   0   14    0   0
-        4    0    0   0    0   5   0   0   0   0  156    0   0
-\end{Verbatim}
-            
-    Use the following line to change all of the values in the ndataframe
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number).
-
-\begin{verbatim}
-df[df==-99999]=np.nan
-\end{verbatim}
-
-Use the \texttt{df.tail()} method to view the last few rows in the
-dataframe. We see row 30, column 5 has the value `\texttt{NaN} (not a
-number).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99999}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
-         \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:}     0     1   2     3   4     5   6   7      8   9    10  11
-         26   0   0.0  78  35.0   2  35.0   0   0    6.0   0  2.0   0
-         27   0  62.0   0  13.0   0  14.0   5   0  138.0   0  0.0   0
-         28   0   NaN   5  86.0   0  14.0   0   0   58.0   0  0.0   0
-         29  33   NaN   8   0.0   0   8.0   0   0   10.0   0  0.0   0
-         30  33   NaN   0   NaN   0   NaN   0   0    NaN   1  NaN   0
-\end{Verbatim}
-            
-    By completing Example 3.3, you know the data in the excel file
-represents rainfall in \emph{hundredths of an inch}, but for brevity's
-sake, this lab will treat the data as if it were rainfall in
-\emph{inches}. There is no need to change or scale the data before
-further processing.
-
-Define a variable called \texttt{month} and set it equal to \texttt{1}
-for now. This will represent the month for which we will compute
-statistics. Later, you will change \texttt{month} to other values.
-\texttt{0} means January, \texttt{1} means February, and so on.
-
-Use the value in \texttt{month} to extract that month's data from your
-\texttt{wd} dataframe. Store these values in a new list called
-\texttt{m}. Because January has 31 days, you only see values in
-\textbf{m} that are positive or zero (no values of -99999 ). Since
-February has 28 days, you will see positive numbers, zeros and
-\texttt{NaN} present in the list.
-
-For example, according to our data, the rainfall for the first 3 days in
-January are 0 inches, 0 inches, and 272 inches. The average rain fall
-per day in the first 3 days of January is 90.667. The average rain fall
-for the days of January 2nd and 3rd is 136.
-
-    Compute and store the following statistics/properties of the data in the
-dataframe \texttt{df1} in variables named as follows:
+    \hypertarget{instructor-information}{%
+\subsection{Instructor Information}\label{instructor-information}}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{m\_avg}: average inches fallen in month \texttt{m}
+  Instructor: Peter Kazarinoff
 \item
-  \texttt{m\_max}: maximum inches fallen in month \texttt{m}
+  Instructor email: peter.kazarinoff@pcc.edu
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
-  inches fell
+  Instructor phone: 971-722-8065(email is the best way to get in touch)
 \item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
-  inches fell
+  Office Hours: Mon 9:30am-11:30am and Wed 1pm-4pm
 \item
-  \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
-\item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
-  rain fell
-\item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
-  least some rain fell\\
-\item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
-  rain fell
+  Office Location: SY ST200
 \end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
-         
-         \PY{n}{m\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}avg}\PY{p}{)}
-         
-         \PY{n}{m\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         
-         \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{n}{m\PYZus{}max}\PY{p}{]}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}zero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{n}{m\PYZus{}max}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{nd\PYZus{}zero}\PY{p}{)}
-         
-         \PY{n}{nd\PYZus{}nonzero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}nonzero}\PY{p}{)}
-         
-         \PY{n}{df\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
-         \PY{n}{pos\PYZus{}rain\PYZus{}lst} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{p}{]}
-         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{pos\PYZus{}rain\PYZus{}lst}\PY{p}{)}
-\end{Verbatim}
+    \hypertarget{course-information}{%
+\subsection{Course Information}\label{course-information}}
 
+\hypertarget{course-description}{%
+\subsubsection{Course Description}\label{course-description}}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-18.392857142857142
-135.0
-17
-1
-14
+\begin{itemize}
+\tightlist
+\item
+  Credits: 4
+\item
+  Prerequisites: ENGR 101 or department-approved equivalent
+\item
+  Summary: Introduces computer programming terminology and techniques as
+  applied to specific engineering applications. Topics include
+  electrical circuit analysis, audio signal processing, image
+  processing, and interfacing with hardware such as microcontrollers and
+  analog-to-digital converters application. The course covers reading
+  and documenting code, compiling and testing code, and debugging and
+  correcting defects found in code.
+\end{itemize}
 
-    \end{Verbatim}
+\hypertarget{course-meeting-times-and-locations}{%
+\subsubsection{Course Meeting Times and
+Locations}\label{course-meeting-times-and-locations}}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}49}]:} 36.785714285714285
-\end{Verbatim}
-            
-    Test all of your values for the month of January manually to make sure
-they are correct.
+\begin{itemize}
+\tightlist
+\item
+  Lecture: Tues 1pm-3:50pm in AM106
+\item
+  Lab: Thurs 1pm-3:50pm in AM106
+\end{itemize}
 
-Run your script for the February data (\texttt{m=1}) and check the
-results against manual calculations for that month.
+\hypertarget{course-materials}{%
+\subsection{Course Materials}\label{course-materials}}
 
-You may wish to test your script against other month's data. When you
-are convinced your results and variable names are correct, Restart the
-notebook Kernal and clear all output. Run each cell one last time and
-ensure the script is error free.
+\hypertarget{textbook}{%
+\subsubsection{Textbook}\label{textbook}}
 
-For your own records, save your lab2.ipnb file and your
-\texttt{weather\_data.xlsx} file to the same directory. You do not need
-to submit your \texttt{weather\textbackslash{}\_data.xlsx} file because
-your instructor will have their own copy to test your script.
+\emph{Problem Solving with Python} by Peter D. Kazarinoff. Available
+online at
+\href{https://problemsolvingwithpython.com/}{problemsolvingwithpython.com}
+and hard copy on Amazon soon.
 
-    \hypertarget{deliverable}{%
-\subsection{Deliverable}\label{deliverable}}
+\hypertarget{other-course-materials}{%
+\subsubsection{Other course materials}\label{other-course-materials}}
 
-One .ipynb-file with output all cells run. The .ipynb-file should run
-without errors. Uploaded the .ipynb file to D2L by the end of the lab
-period.
+\begin{itemize}
+\tightlist
+\item
+  USB thumb drive. 1GB size or larger will work fine. Bring to every
+  class.
+\item
+  Scientific Calculator
+\item
+  Access to the course programming environment, available online at
+  \url{https://engr114.org}. An @pcc.edu email address and password is
+  needed to login. Log into your @pcc.edu email account and then open
+  the course programming environment.
+\item
+  An ESP8266-based microcontroller and micro-USB data cable.
+  \href{https://www.adafruit.com/product/3046}{AdaFruit Feather Huzzah
+  ESP8266} or \href{http://a.co/d/jh5yMHa}{ESP8266 Module ESP-12E
+  NodeMCU}. Microcontroller and USB cable will be available for purchase
+  for \$10.
+\end{itemize}
 
-    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}{%
-\paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
-Portland Community College,
-2018}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2018}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}}
+All PCC Computer Labs have Internet access. Remember to sign into your
+myPCC email account before logging in to the course programming
+environment. The course programming environment will work on all student
+laptops, desktops, and Chromebooks that have an Internet connection.
+
+You can also download and install the programming environment on a home
+computer. The download is free and available at:
+\url{https://www.anaconda.com/download/}.
+
+    \hypertarget{course-components}{%
+\subsection{Course Components}\label{course-components}}
+
+    \hypertarget{homework}{%
+\subsubsection{Homework}\label{homework}}
+
+Homework is intended as a means of practicing the concepts presented in
+class. Timely submission of homework via Desire2Learn (D2L) is required.
+\textbf{No late homework is accepted in this course.} The D2L upload
+folder will close to submissions after the assignment deadline. With
+this in mind, your \textbf{lowest homework score of quarter will be
+dropped}. All homework assignments are weighted equally. Check D2L for
+assignments, homework format, and submission deadlines.
+
+    \hypertarget{exams}{%
+\subsubsection{Exams}\label{exams}}
+
+If a student is unable to take the exam when it is scheduled, it is the
+student's responsibility to notify the instructor \textbf{at least 1
+week prior to the date of an exam}. Make-up exams, if allowed, will be
+scheduled by the instructor after consulting with the student
+\textbf{prior} to the original date of the exam. I look forward to
+working with any students who have testing accommodations. It is the
+student's responsibility to set up a meeting \textbf{at least 1 week
+prior to the exam date} to review exam protocol as the testing center
+does not have laptops with the course programming environment installed.
+
+\hypertarget{during-exams}{%
+\paragraph{During Exams:}\label{during-exams}}
+
+\begin{itemize}
+\tightlist
+\item
+  Exams will be taken during lecture or lab time in the classroom.
+\item
+  Exams will have two parts, a written portion, and a computer portion
+
+  \begin{itemize}
+  \tightlist
+  \item
+    During the written portion you cannot use Python and computer
+    monitors must be off
+  \item
+    During the computer portion, you must use Python on the computers in
+    the classroom. No student laptops allowed on exams.
+  \end{itemize}
+\item
+  Generally, a calculator and one page of notes are allowed on the
+  exams.
+\item
+  You must complete each exam during the exam period. Uploads after the
+  deadline will receive zero credit.
+\end{itemize}
+
+    \hypertarget{labs}{%
+\subsubsection{Labs}\label{labs}}
+
+Typically, lecture is held early in the week and lab held later in the
+week. This is subject to change. Lab assignments are typically due at
+the end of the lab period, uploaded to D2L. \textbf{No late labs will be
+accepted}. \textbf{You must be present in lab to receive credit for the
+lab assignment}. Your \textbf{lowest lab score of the quarter will be
+dropped}. Lab assignments and grading are subject to change throughout
+the quarter. Check D2L for specific lab submission deadlines and
+requirements.
+
+    \hypertarget{in-class-assignments}{%
+\subsubsection{In-Class Assignments}\label{in-class-assignments}}
+
+Most lecture days include an in-class assignment that needs to be
+uploaded to D2L by the end of the class period. See D2L for specific
+in-class assignment details. \textbf{No late in-class assignments will
+be accepted}. \textbf{You must be present in lecture to receive credit
+for the in-class assignment}. Your \textbf{lowest in-class assignment
+score of the quarter will be dropped}. In-class assignments and grading
+are subject to change throughout the quarter.
+
+    \hypertarget{group-project}{%
+\subsubsection{Group Project}\label{group-project}}
+
+You will complete a group project throughout the quarter. Project
+delivery will be at the end of the quarter. Students must be present
+when their project is delivered to receive credit. During the quarter,
+there will be occasional project assignments to complete. See D2L for
+the project description and grading details. \textbf{No late projects
+will be accepted}.
+
+    \hypertarget{grading}{%
+\subsection{Grading}\label{grading}}
+
+\begin{itemize}
+\tightlist
+\item
+  Homework: 15\%
+\item
+  Exams: 20\%
+\item
+  Labs: 25\%
+\item
+  In-class: 5\%
+\item
+  Project: 15\%
+\end{itemize}
+
+Grades will be rounded to the nearest two significant figures (nearest
+whole percentage point) and converted to letter grades according to the
+table below. 84.4999999\% rounds to an 84\%, 84.50000\% rounds to 85\%.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Grade Percentage & Letter Grade\tabularnewline
+\midrule
+\endhead
+100 - 90 & A\tabularnewline
+80 - 89 & B\tabularnewline
+70 - 79 & C\tabularnewline
+65 - 69 & D\tabularnewline
+0 - 64 & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{class-rules-and-resources}{%
+\subsection{Class rules and resources}\label{class-rules-and-resources}}
+
+\hypertarget{class-rules}{%
+\subsubsection{Class Rules}\label{class-rules}}
+
+Be respectful and courteous to others. Failure to do so may result in
+lowering your course grade. Cheating will not be tolerated, and may
+result in failure of the entire course.
+
+\hypertarget{attendance-make-up-and-other-class-policies}{%
+\subsubsection{Attendance, Make-Up, and Other Class
+Policies}\label{attendance-make-up-and-other-class-policies}}
+
+Attendance at all labs and lectures is required. Attendance may be used
+in the grading process. Tardy students may be denied entry to class or
+docked in credit for in-class assignments. Poor attendance or repeated
+tardiness will have an adverse effect on a student's grade for the
+course.
+
+Students should check their PCC email at least three times a week to
+ensure receipt of announcements and essential information about the
+class.
+
+Students may only attend this course if registered. Students who are
+unable to attend must drop the course online or through the Registration
+Office. To remove tuition charges, the course must be dropped by the
+student before the drop deadline posted on MyPCC. Students who never
+attend, or stop attending, without dropping may receive a W or a failing
+grade and will be required to pay for the course.
+
+The instructor reserves the right to modify course content and/or
+substitute assignments and learning activities in response to
+institutional, weather or class situations. To find out if the college
+is closed due to bad weather, please check the
+\href{http://www.pcc.edu/}{PCC Website}, call the PCC switchboard at
+503-244-6111, check the local radio and TV stations, or subscribe to
+\href{https://www.pcc.edu/about/announcements/closure-information.html}{FlashAlerts}.
+
+    \hypertarget{additional-content-areas-links-and-other-information}{%
+\subsubsection{Additional Content Areas, Links, and Other
+Information}\label{additional-content-areas-links-and-other-information}}
+
+(Note: See electronic copy for clickable links to these resources.)
+
+\begin{itemize}
+\item
+  \href{http://greenteapress.com/think-python}{Think Python} is a free
+  textbook in PDF form, or is available for purchase in print form from
+  Amazon.
+\item
+  \href{https://www.manning.com/books/get-programming}{Get Programming}
+  by Ana Bell is another good book. It is available at
+  \href{https://www.manning.com/}{Manning Publications}
+\item
+  \href{http://www.pcc.edu/resources/academic/standards-practices/AcademicStandardsandPractices-GradingGuidelines.html}{PCC
+  Grading Guidelines}
+\item
+  \href{http://www.pcc.edu/registration/dropping.html}{Add/drop/withdraw
+  deadlines for the term}
+\item
+  \href{http://www.pcc.edu/registration/academic-calendar.html}{PCC
+  Academic Calendar}
+\item
+  \href{https://www.pcc.edu/about/equity-inclusion/eeo-statement.html}{PCC
+  Nondiscrimination Statement}
+\end{itemize}
+
+\hypertarget{student-services}{%
+\paragraph{Student services:}\label{student-services}}
+
+\begin{itemize}
+\item
+  \href{https://www.pcc.edu/resources/veterans/}{Veteran Resources}
+\item
+  \href{http://www.pcc.edu/resources/tutoring/sylvania/student-success/}{Sylvania
+  Student Learning Center}
+\item
+  \href{https://www.pcc.edu/resources/women/sylvania/}{Sylvania Women's
+  Resource Center}
+\item
+  \href{https://www.pcc.edu/resources/qrc/sylvania/}{LGBTQ Resources and
+  Programming at Sylvania}
+\end{itemize}
+
+\href{http://www.pcc.edu/about/policy/student-rights/}{Student Rights
+and Responsibilities}, Includes information on Children on PCC
+Properties, Academic Integrity Policy, Policy on Student Conduct
+
+\hypertarget{additional-classroom-rules}{%
+\paragraph{Additional Classroom
+Rules}\label{additional-classroom-rules}}
+
+\begin{itemize}
+\item
+  Use of cell phones and other personal electronic devices, unless
+  otherwise stated, is not allowed during classes, labs, or exams.
+\item
+  The unauthorized recording (audio, video, or still pictures) of course
+  sessions, including recording other students, and distribution of said
+  recordings is not permitted.
+\item
+  The instructor reserves the right to modify course content and/or
+  substitute assignments and learning activities in response to
+  institutional, weather, or class situations.
+\end{itemize}
+
+    \hypertarget{students-with-disabilities}{%
+\subsubsection{Students with
+Disabilities}\label{students-with-disabilities}}
+
+Students working with the Office for Students with Disabilities that may
+require classroom or course adjustment or accommodation should make
+their needs known to the instructor as early as possible. The Office for
+Students with Disabilities may be contacted at:
+
+\url{https://pcc.edu/disability}
+
+Sylvania ST 229
+
+Portland, OR 97219
+
+Phone: 971-722-4341 (Voice)
+
+Email: disability.services@pcc.edu
+
+Students who have a documented disability and require accommodation
+should contact
+\href{http://www.pcc.edu/resources/disability}{Disabilities Services}
+and provide the Approved Academic Accommodations letter to the
+Instructor.
+
+    \hypertarget{title-iv}{%
+\subsubsection{Title IV}\label{title-iv}}
+
+Portland Community College is committed to creating and fostering a
+learning and working environment based on open communication and mutual
+respect. If you believe you have encountered sexual harassment, sexual
+misconduct, sexual assault, or discrimination based on race, color,
+religion, age, national origin, veteran status, sex, sexual orientation,
+gender identity, or disability please contact the Office of Equity and
+Inclusion at (971) 722-5840 or equity.inclusion@pcc.edu.
+
+    \hypertarget{academic-integrity}{%
+\subsubsection{Academic Integrity}\label{academic-integrity}}
+
+Students are required to complete this course in accordance with the
+\href{https://www.pcc.edu/about/policy/student-rights/documents/student-conduct.pdf}{PCC
+Student Rights and Responsibilities Handbook}. Dishonest activities such
+as cheating on exams and submitting or copying work done by others will
+result in disciplinary actions including, but not limited to, receiving
+a failing grade in the course.
+
+    \hypertarget{tentative-course-schedule}{%
+\subsection{Tentative Course Schedule}\label{tentative-course-schedule}}
+
+The course schedule below is subject to change. Check D2L for specific
+course deadlines.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Week & Lecture & Lab & Homework Due\tabularnewline
+\midrule
+\endhead
+Week 1 & The Python REPL & Lab 1: Calculations &\tabularnewline
+Week 2 & Data types and variables & Lab 2: Data Types & Homework
+1\tabularnewline
+Week 3 & Data structures, input and print & Lab 3: User Input & Homework
+2\tabularnewline
+Week 4 & Plotting & Lab 4: Plotting & Homework 3\tabularnewline
+Week 5 & Functions & Lab 5: Web API's & Homework 4\tabularnewline
+Week 6 & Review & \textbf{Exam 1} &\tabularnewline
+Week 7 & If, elif, else & Lab 6: Audio Filtering &\tabularnewline
+Week 8 & Loops & Lab 7: Taylor Series & Homework 5\tabularnewline
+Week 9 & MicroPython & Lab 8: MicroPython & Homework 6\tabularnewline
+Week 9 & External Hardware & Lab 9: External Hardware &\tabularnewline
+Week 10 & Review & \textbf{Exam 2} &\tabularnewline
+Finals Week & Project Delivery & &\tabularnewline
+\bottomrule
+\end{longtable}
 
 
     % Add a bibliography block to the postdoc
