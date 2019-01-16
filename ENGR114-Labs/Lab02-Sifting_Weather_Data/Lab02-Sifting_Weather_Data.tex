@@ -359,124 +359,207 @@ Data}\label{lab-02---sifting-weather-data}}
     \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
-Complete Example 3.3 (p.~89) from the textbook. Coding this example will
-help you with the lab assignment. You can find the relevant .xlsx-file
-posted along with these lab instructions on D2L. After completing
-Example 3.3, save your script in a Jupyter notebook. Your work
-completing Example 3.3 does not need to be submitted for credit.
+You can find the relevant .xlsx-file posted along with these lab
+instructions on D2L. After completing the in-class example, save your
+script as a Jupyter notebook. Your work completing the in-class example
+does not need to be submitted for credit.
 
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
-Import the weather data from the from the
-\texttt{weather\textbackslash{}\_data.xls} file into a Panda's dataframe
-called \texttt{wdf}. This time, the dataframe will contain a couple
-values equal to \texttt{-99999}. Transpose the data (as done in Example
-3.3) so the data for each month is in columns. Save the transposed
-dataframe to the varaiable \texttt{df}. Complete these steps using the
-follwoing commands.
+In this lab, you will be working with rainfall data that is stored in an
+Excel file called \texttt{weather\_data.xlsx}. The Excel file contains
+the rainfall on different days of the year in hundredths of an inch. The
+rows of the Excel file represent months and the columns of the Excel
+file represent days. The data stored in the cells of the Excel file
+represent rainfall in hundredths of an inch.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{wdf }\OperatorTok{=}\NormalTok{ pd.read_excel(}\StringTok{'weather_data.xlsx'}\NormalTok{, header}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ wdf.transpose()}
-\end{Highlighting}
-\end{Shaded}
+You will use Python to derive some meaningful statistics from the
+rainfall data.
 
-    Search the Pandas pacakge documentation help section to see how to use
-the \texttt{pd.read\_excel()} function words and why we need the keyword
-argument \texttt{header=None} in this example.
+    \hypertarget{import-external-packages}{%
+\subsubsection{Import External
+Packages}\label{import-external-packages}}
 
-Note: the .xlsx-file must be in your current file path, and quotes need
-to surround the file name.
+The first step in the lab is to add a header to your Jupyter Notebook
+that includes the lab number and name, your name, the course, quarter
+and date.
+
+Below the header cell, you need to import \textbf{NumPy} and
+\textbf{Pandas}. NumPy and Pandas are two external packages that you
+will use in the lab. The standard alias \texttt{np} and \texttt{pd}
+should be used for NumPy and Pandas respectively.
+
+The Jupyter notebook code cell below shows the import lines.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{wdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
-        \PY{n}{df} \PY{o}{=} \PY{n}{wdf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
-    Afterwards, running \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 31 rows x 12 columns. Also check the value
-in row 0, column 3 in the dataframe is \texttt{260} by running the
-\texttt{df.head()} method.
+    \hypertarget{save-the-weather-data-to-a-numpy-array}{%
+\subsubsection{Save the weather data to a NumPy
+array}\label{save-the-weather-data-to-a-numpy-array}}
+
+The next step in the lab is to import the Excel file using Pandas and
+save the weather data to a NumPy array.
+
+Import the weather data from the \texttt{weather\_data.xls} file into a
+Panda's dataframe called \texttt{df}. You can search the Pandas package
+documentation help section to see how to use the
+\texttt{pd.read\_excel()} function and why we need the keyword argument
+\texttt{header=None} in this example.
+
+Note: the .xlsx-file must be in your current file path, and quotes need
+to surround the file name.
+
+The Jupyter notebook code cell below shows the steps to import the
+\texttt{weather\_data.xlsx} file into a Pandas dataframe, and save the
+data in the variable \texttt{df}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    You can use Pandas methods to view the top of the dataframe with
+\texttt{df.head()} and \texttt{df.tail()}. When first imported, the
+dataframe \texttt{df} contains a couple values equal to \texttt{-99999}.
+Running the command \texttt{print(df.shape)} will indicate the dataframe
+\texttt{df} has dimensions of 12 rows x 31 columns. Also check the value
+in row 1 (index 0), column 3 (index 2) in the dataframe is \texttt{272}
+by running the \texttt{wdf.head()} method.
+
+The code cell below completes these steps.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-(31, 12)
+(12, 31)
 
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}2}]:}     0    1   2    3   4   5   6   7   8    9    10  11
-        0    0   61   2  260  47   0   0   0   0    0    1   0
-        1    0  103   0    1   0   0   0  45   0    0  163   0
-        2  272    0  17    0   0  30   0   0   0    0    5   0
-        3    0    2  27    0   0  42   0   0   0   14    0   0
-        4    0    0   0    0   5   0   0   0   0  156    0   0
+{\color{outcolor}Out[{\color{outcolor}3}]:}     0    1    2   3   4    5   6   7   8   9   {\ldots}    21  22   23  24  25  26  \textbackslash{}
+        0    0    0  272   0   0    0   0   9  26   1  {\ldots}     1  15  224   0   0   0   
+        1   61  103    0   2   0    0   0   2   0  68  {\ldots}     0   0    5   0   0   0   
+        2    2    0   17  27   0   10   0   0  30  25  {\ldots}    26   0    0   9   6  78   
+        3  260    1    0   0   0    1   3   0   5   0  {\ldots}     0   0    0   0   9  35   
+        4   47    0    0   0   5  115  49  81   0   0  {\ldots}     0   0    0   0   0   2   
+        
+           27     28     29     30  
+        0   0      0     33     33  
+        1  62 -99999 -99999 -99999  
+        2   0      5      8      0  
+        3  13     86      0 -99999  
+        4   0      0      0      0  
+        
+        [5 rows x 31 columns]
 \end{Verbatim}
             
-    Use the following line to change all of the values in the ndataframe
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number).
+    Next, convert the Pandas dataframe \texttt{df} to a NumPy array called
+\texttt{wd} (for weather data). Use NumPy's \texttt{np.array()}
+function.
 
-\begin{verbatim}
-df[df==-99999]=np.nan
-\end{verbatim}
-
-Use the \texttt{df.tail()} method to view the last few rows in the
-dataframe. We see row 30, column 5 has the value `\texttt{NaN} (not a
-number).
+The Jupyter notebook code cell below demonstrates this functionality.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99999}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
-        \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{)}
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}3}]:}     0     1   2     3   4     5   6   7      8   9    10  11
-        26   0   0.0  78  35.0   2  35.0   0   0    6.0   0  2.0   0
-        27   0  62.0   0  13.0   0  14.0   5   0  138.0   0  0.0   0
-        28   0   NaN   5  86.0   0  14.0   0   0   58.0   0  0.0   0
-        29  33   NaN   8   0.0   0   8.0   0   0   10.0   0  0.0   0
-        30  33   NaN   0   NaN   0   NaN   0   0    NaN   1  NaN   0
-\end{Verbatim}
-            
-    By completing Example 3.3, you know the data in the excel file
-represents rainfall in \emph{hundredths of an inch}, but for brevity's
-sake, this lab will treat the data as if it were rainfall in
-\emph{inches}. There is no need to change or scale the data before
-further processing.
+    Next use Python's \texttt{type()} function to verify the variable
+\texttt{wd} is a NumPy array. The code cell below will print
+\texttt{wd}'s data type.
 
-Define a variable called \texttt{month} and set it equal to \texttt{1}
-for now. This will represent the month for which we will compute
-statistics. Later, you will change \texttt{month} to other values.
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{wd}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'numpy.ndarray'>
+
+    \end{Verbatim}
+
+    \hypertarget{clean-up-the-data}{%
+\subsubsection{Clean up the data}\label{clean-up-the-data}}
+
+The weather data is in hundredths of an inch. Multiply each value in the
+array by \texttt{0.01} so that the array contains rain fall in inches
+(not hundredths of an inch). Next, convert all the values in the array
+\texttt{wd} which are equal to \texttt{-99999} and set them to
+\texttt{NaN} (not a number). NumPy has a special \texttt{NaN} type which
+allows the location of the \texttt{NaN} value to stay in the array. The
+\texttt{NaN} values will not interfere with calculations, like leaving a
+\texttt{-99999} in the array would.
+
+The code cell below shows how to convert the data to inches of rainfall
+and convert all the -99999 into NumPy's \texttt{NaN} data type. The
+command \texttt{wd\textless{}0} created a boolean mask. The boolean mask
+is the same size as \texttt{wd}, but only contains \texttt{True} or
+\texttt{Flase}. In the mask, all locations where \texttt{wd\textless{}0}
+are set to \texttt{True}; all other values in the boolean mask are set
+to \texttt{False}. We then use the boolean mask to index the array. We
+set the value \texttt{np.nan} (NumPy's not a number type) at all the
+locations in \texttt{wd} where the boolean mask is set to \texttt{True}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{wd}\PY{o}{*}\PY{l+m+mf}{0.01}
+        \PY{n}{wd}\PY{p}{[}\PY{n}{wd}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+\end{Verbatim}
+
+
+    \hypertarget{define-a-month-array-and-compute-statistics}{%
+\subsubsection{Define a month array and compute
+statistics}\label{define-a-month-array-and-compute-statistics}}
+
+Define a variable called \texttt{m} and set it equal to \texttt{1} for
+now (Month \texttt{1} is February, remember Python counting starts at
+0). \texttt{m} represents the month for which we will compute
+statistics. Later, you will change \texttt{m} to other values.
 \texttt{0} means January, \texttt{1} means February, and so on.
 
-Use the value in \texttt{month} to extract that month's data from your
-\texttt{wd} dataframe. Store these values in a new list called
-\texttt{m}. Because January has 31 days, you only see values in
-\textbf{m} that are positive or zero (no values of -99999 ). Since
-February has 28 days, you will see positive numbers, zeros and
-\texttt{NaN} present in the list.
+Use the value in \texttt{m} to extract that month's data from your
+\texttt{wd} array. Store these values in an array called \texttt{md}
+(for month data). Since February has 28 days, you will see positive
+numbers, zeros and \texttt{NaN} present in the array.
 
 For example, according to our data, the rainfall for the first 3 days in
-January are 0 inches, 0 inches, and 272 inches. The average rain fall
-per day in the first 3 days of January is 90.667. The average rain fall
-for the days of January 2nd and 3rd is 136.
+February are \texttt{0.61} inches, \texttt{1.03} inches, and \texttt{0}
+inches.
 
-    Compute and store the following statistics/properties of the data in the
-dataframe \texttt{df1} in variables named as follows:
+The Jupyter notebook cell which shows this operation is below. Note how
+indexing is used to pull out all of the values from one row. The general
+syntax for indexing a NumPy array is \texttt{array{[}row,col{]}}. If we
+use \texttt{wd{[}1,:{]}}, this means \texttt{row=1}, \texttt{col=all}
+(row one, all columns).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{md} \PY{o}{=} \PY{n}{wd}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{md}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.61 1.03 0.   0.02 0.   0.   0.   0.02 0.   0.68 0.03 0.03 0.01 0.
+ 0.   0.   0.01 1.35 0.03 0.66 0.   0.   0.   0.05 0.   0.   0.   0.62
+  nan  nan  nan]
+    \end{Verbatim}
+
+    \hypertarget{compute-statistics-for-the-choosen-month}{%
+\subsubsection{Compute Statistics for the choosen
+month}\label{compute-statistics-for-the-choosen-month}}
+
+The last part of the lab involves computing and storing the following
+statistics/properties of the data in the \texttt{md} array in variables
+named as follows:
 
 \begin{itemize}
 \tightlist
@@ -485,101 +568,49 @@ dataframe \texttt{df1} in variables named as follows:
 \item
   \texttt{m\_max}: maximum inches fallen in month \texttt{m}
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
-  inches fell
+  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max} inches fell
 \item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
-  inches fell
+  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero inches fell
 \item
   \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
 \item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
-  rain fell
+  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some rain fell
 \item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
-  least some rain fell\\
+  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at least some rain fell
 \item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
-  rain fell
+  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which somerain fell
 \end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
-        
-        \PY{n}{m\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}avg}\PY{p}{)}
-        
-        \PY{n}{m\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}max}\PY{p}{)}
-        
-        \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]} \PY{o}{==} \PY{n}{m\PYZus{}max}\PY{p}{]}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-        
-        \PY{n}{nd\PYZus{}zero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{n}{m\PYZus{}max}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nd\PYZus{}zero}\PY{p}{)}
-        
-        \PY{n}{nd\PYZus{}nonzero} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{d\PYZus{}nonzero}\PY{p}{)}
-        
-        \PY{n}{df\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
-        \PY{n}{pos\PYZus{}rain\PYZus{}lst} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{p}{]}
-        \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{pos\PYZus{}rain\PYZus{}lst}\PY{p}{)}
-\end{Verbatim}
+NumPy's \texttt{np.where()} function is useful here as are
+\texttt{np.mean()}, \texttt{np.max()} and an array's \texttt{array.size}
+attribute.
 
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-18.392857142857142
-135.0
-17
-1
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        NameError                                 Traceback (most recent call last)
-
-        <ipython-input-4-505b45a0237c> in <module>()
-         14 
-         15 nd\_nonzero = sum(df[m]>0)
-    ---> 16 print(d\_nonzero)
-         17 
-         18 df\_list = list(df[m].values)
-    
-
-        NameError: name 'd\_nonzero' is not defined
-
-    \end{Verbatim}
-
-    Test all of your values for the month of January manually to make sure
+    Test all of your values for the month of February manually to make sure
 they are correct.
 
-Run your script for the February data (\texttt{m=1}) and check the
+Then run your script for the January data (\texttt{m=0}) and check the
 results against manual calculations for that month.
 
 You may wish to test your script against other month's data. When you
-are convinced your results and variable names are correct, Restart the
-notebook Kernal and clear all output. Run each cell one last time and
-ensure the script is error free.
+are convinced your results and variable names are correct, set
+\texttt{m=1} and restart the Jupyter notebook Kernel and clear all
+output. Run each cell one last time and ensure the script is error free.
 
-For your own records, save your lab2.ipnb file and your
+For your own records, save your \texttt{lab2.ipynb} file and your
 \texttt{weather\_data.xlsx} file to the same directory. You do not need
-to submit your \texttt{weather\textbackslash{}\_data.xlsx} file because
-your instructor will have their own copy to test your script.
+to submit your \texttt{weather\_data.xlsx} file because your instructor
+has their own copy to test your script.
 
     \hypertarget{deliverable}{%
 \subsection{Deliverable}\label{deliverable}}
 
-One .ipynb-file with output all cells run. The .ipynb-file should run
-without errors. Uploaded the .ipynb file to D2L by the end of the lab
-period.
+One .ipynb-file with all cells run. The .ipynb-file should run without
+errors. Uploaded the .ipynb file to D2L by the end of the lab period.
 
-    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}{%
+    \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2019}{%
 \paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
 Portland Community College,
-2018}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2018}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2018}}
+2019}}{By D. Kruger, adapted by P. Kazarinoff, Portland Community College, 2019}}\label{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2019}}
 
 
     % Add a bibliography block to the postdoc
