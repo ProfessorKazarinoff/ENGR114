@@ -435,7 +435,7 @@ The code cell below completes these steps.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
-        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df}
 \end{Verbatim}
 
 
@@ -445,21 +445,35 @@ The code cell below completes these steps.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}3}]:}     0    1    2   3   4    5   6   7   8   9   {\ldots}    21  22   23  24  25  26  \textbackslash{}
-        0    0    0  272   0   0    0   0   9  26   1  {\ldots}     1  15  224   0   0   0   
-        1   61  103    0   2   0    0   0   2   0  68  {\ldots}     0   0    5   0   0   0   
-        2    2    0   17  27   0   10   0   0  30  25  {\ldots}    26   0    0   9   6  78   
-        3  260    1    0   0   0    1   3   0   5   0  {\ldots}     0   0    0   0   9  35   
-        4   47    0    0   0   5  115  49  81   0   0  {\ldots}     0   0    0   0   0   2   
+{\color{outcolor}Out[{\color{outcolor}3}]:}      0    1    2   3    4    5   6   7   8    9   {\ldots}    21  22   23   24  \textbackslash{}
+        0     0    0  272   0    0    0   0   9  26    1  {\ldots}     1  15  224    0   
+        1    61  103    0   2    0    0   0   2   0   68  {\ldots}     0   0    5    0   
+        2     2    0   17  27    0   10   0   0  30   25  {\ldots}    26   0    0    9   
+        3   260    1    0   0    0    1   3   0   5    0  {\ldots}     0   0    0    0   
+        4    47    0    0   0    5  115  49  81   0    0  {\ldots}     0   0    0    0   
+        5     0    0   30  42    0    0   0   0   0    0  {\ldots}     0   2    2  240   
+        6     0    0    0   0    0    0   0   7   0    0  {\ldots}     0   0    0   10   
+        7     0   45    0   0    0    0   0   0   5    0  {\ldots}     0   0  158   62   
+        8     0    0    0   0    0    0   0   0   0    0  {\ldots}    37   0    0    0   
+        9     0    0    0  14  156    0   0   0   0  110  {\ldots}     0   0    0    0   
+        10    1  163    5   0    0    0   0   0   0    0  {\ldots}     0   2    2   10   
+        11    0    0    0   0    0   45   0   0   0   15  {\ldots}    34   0    0    0   
         
-           27     28     29     30  
-        0   0      0     33     33  
-        1  62 -99999 -99999 -99999  
-        2   0      5      8      0  
-        3  13     86      0 -99999  
-        4   0      0      0      0  
+             25  26   27     28     29     30  
+        0     0   0    0      0     33     33  
+        1     0   0   62 -99999 -99999 -99999  
+        2     6  78    0      5      8      0  
+        3     9  35   13     86      0 -99999  
+        4     0   2    0      0      0      0  
+        5    16  35   14     14      8 -99999  
+        6     0   0    5      0      0      0  
+        7     1   0    0      0      0      0  
+        8     0   6  138     58     10 -99999  
+        9     0   0    0      0      0      1  
+        10  255   2    0      0      0 -99999  
+        11    0   0    0      0      0      0  
         
-        [5 rows x 31 columns]
+        [12 rows x 31 columns]
 \end{Verbatim}
             
     Next, convert the Pandas dataframe \texttt{df} to a NumPy array called
@@ -471,53 +485,48 @@ The Jupyter notebook code cell below demonstrates this functionality.
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}4}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{)}
 \end{Verbatim}
-
+\newpage
 
     Next use Python's \texttt{type()} function to verify the variable
-\texttt{wd} is a NumPy array. The code cell below will print
-\texttt{wd}'s data type.
+\texttt{wd} is a NumPy array. Also verify that the NumPy array is 5 by
+31, which is the same dimensions (how many rows, how many columns) as
+the dataframe \texttt{df} that we previously printed out.
+
+The code cell below prints \texttt{wd}'s data type and prints the
+dimensions of \texttt{wd}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{wd}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wd}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 <class 'numpy.ndarray'>
-
-    \end{Verbatim}
+(12, 31)
+\end{Verbatim}
 
     \hypertarget{clean-up-the-data}{%
 \subsubsection{Clean up the data}\label{clean-up-the-data}}
 
 The weather data is in hundredths of an inch. Multiply each value in the
 array by \texttt{0.01} so that the array contains rain fall in inches
-(not hundredths of an inch). Next, convert all the values in the array
-\texttt{wd} which are equal to \texttt{-99999} and set them to
-\texttt{NaN} (not a number). NumPy has a special \texttt{NaN} type which
-allows the location of the \texttt{NaN} value to stay in the array. The
-\texttt{NaN} values will not interfere with calculations, like leaving a
-\texttt{-99999} in the array would.
+(not hundredths of an inch).
 
-The code cell below shows how to convert the data to inches of rainfall
-and convert all the -99999 into NumPy's \texttt{NaN} data type. The
-command \texttt{wd\textless{}0} created a boolean mask. The boolean mask
-is the same size as \texttt{wd}, but only contains \texttt{True} or
-\texttt{Flase}. In the mask, all locations where \texttt{wd\textless{}0}
-are set to \texttt{True}; all other values in the boolean mask are set
-to \texttt{False}. We then use the boolean mask to index the array. We
-set the value \texttt{np.nan} (NumPy's not a number type) at all the
-locations in \texttt{wd} where the boolean mask is set to \texttt{True}.
+The code cell below shows how to convert the weather data from
+hundredths of an inch to inches. When the multiplication symbol
+\texttt{*} is used with a NumPy array, the multiplication is
+element-wise. This means each value in the array is multiplied by the
+scalar ``0.01```.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}6}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{wd}\PY{o}{*}\PY{l+m+mf}{0.01}
-        \PY{n}{wd}\PY{p}{[}\PY{n}{wd}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
 \end{Verbatim}
 
 
-    \hypertarget{define-a-month-array-and-compute-statistics}{%
-\subsubsection{Define a month array and compute
-statistics}\label{define-a-month-array-and-compute-statistics}}
+    \hypertarget{define-a-month-array-and-remove--99999-values}{%
+\subsubsection{Define a month array and remove -99999
+values}\label{define-a-month-array-and-remove--99999-values}}
 
 Define a variable called \texttt{m} and set it equal to \texttt{1} for
 now (Month \texttt{1} is February, remember Python counting starts at
@@ -538,7 +547,8 @@ The Jupyter notebook cell which shows this operation is below. Note how
 indexing is used to pull out all of the values from one row. The general
 syntax for indexing a NumPy array is \texttt{array{[}row,col{]}}. If we
 use \texttt{wd{[}1,:{]}}, this means \texttt{row=1}, \texttt{col=all}
-(row one, all columns).
+(row one, all columns). Note the values \texttt{-9.9999} present in the
+array \texttt{md}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}7}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
@@ -548,10 +558,86 @@ use \texttt{wd{[}1,:{]}}, this means \texttt{row=1}, \texttt{col=all}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[0.61 1.03 0.   0.02 0.   0.   0.   0.02 0.   0.68 0.03 0.03 0.01 0.
- 0.   0.   0.01 1.35 0.03 0.66 0.   0.   0.   0.05 0.   0.   0.   0.62
-  nan  nan  nan]
+[ 6.1000e-01  1.0300e+00  0.0000e+00  2.0000e-02  0.0000e+00  0.0000e+00
+  0.0000e+00  2.0000e-02  0.0000e+00  6.8000e-01  3.0000e-02  3.0000e-02
+  1.0000e-02  0.0000e+00  0.0000e+00  0.0000e+00  1.0000e-02  1.3500e+00
+  3.0000e-02  6.6000e-01  0.0000e+00  0.0000e+00  0.0000e+00  5.0000e-02
+  0.0000e+00  0.0000e+00  0.0000e+00  6.2000e-01 -9.9999e+02 -9.9999e+02
+ -9.9999e+02]
+
     \end{Verbatim}
+
+    The next step is to remove all of the \texttt{-9.9999} values from the
+\texttt{md} array. If we find the average of the values in \texttt{md}
+now, which corresponds to the average rainfall in February, the value
+that's returned doesn't make sense. There is no way the rain fall could
+be negative.
+
+The code cell below shows how to find the average of the values in the
+array \texttt{md}. Note that \texttt{-9.9999} values are present in the
+array.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{md}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} -96.60709677419354
+\end{Verbatim}
+            
+    To remove the -9.9999 values from the array, use a boolean mask.
+
+The command \texttt{md\textgreater{}-1} creates a boolean mask. The
+boolean mask is an array the same size as \texttt{md}, but only contains
+\texttt{True} or \texttt{False} as values. In the mask, all locations
+where \texttt{md\textgreater{}-1} are set to \texttt{True}; all other
+values in the boolean mask are set to \texttt{False} (We use
+\texttt{md\textgreater{}-1} instead of \texttt{md\textgreater{}0}
+because we want to keep the \texttt{0} values, we just want to get rid
+of the \texttt{-9.9999} values).
+
+The code cell below produces the boolean mask. Note how the last three
+elements are \texttt{False}. The \texttt{False} values are in the same
+location as the \texttt{-9.9999} values in \texttt{md}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{md}\PY{o}{\PYZgt{}}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} array([ True,  True,  True,  True,  True,  True,  True,  True,  True,
+                True,  True,  True,  True,  True,  True,  True,  True,  True,
+                True,  True,  True,  True,  True,  True,  True,  True,  True,
+                True, False, False, False])
+\end{Verbatim}
+            
+    We then use the boolean mask \texttt{md\textgreater{}-1} to index the
+array \texttt{md}. All the locations in \texttt{wd} where the boolean
+mask is set to \texttt{True} are pull out. All the locations in
+\texttt{wd} where the boolean mask is \texttt{False} do not get pulled
+out. We put the results of the indexing operation back into the variable
+\texttt{wd} to be used later.
+
+The code cell below creates the boolean mask, indexes out values from
+\texttt{wd} based on the mask, and puts the results back into
+\texttt{wd}. As a result, \texttt{wd} does not contain \texttt{-9.9999} in any
+location.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{mask} \PY{o}{=} \PY{n}{md}\PY{o}{\PYZgt{}}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{md} \PY{o}{=} \PY{n}{md}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{md}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.61 1.03 0.   0.02 0.   0.   0.   0.02 0.   0.68 0.03 0.03 0.01 0.
+ 0.   0.   0.01 1.35 0.03 0.66 0.   0.   0.   0.05 0.   0.   0.   0.62]
+
+    \end{Verbatim}
+\newpage
 
     \hypertarget{compute-statistics-for-the-choosen-month}{%
 \subsubsection{Compute Statistics for the choosen
@@ -568,17 +654,22 @@ named as follows:
 \item
   \texttt{m\_max}: maximum inches fallen in month \texttt{m}
 \item
-  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max} inches fell
+  \texttt{d\_max}: day(s) of month \texttt{m} in which \texttt{m\_max}
+  inches fell
 \item
-  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero inches fell
+  \texttt{nd\_zero}: number of day(s) of month \texttt{m} in which zero
+  inches fell
 \item
   \texttt{d\_zero}: day(s) of month \texttt{m} in which zero inches fell
 \item
-  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some rain fell
+  \texttt{d\_nonzero}: day(s) of month \texttt{m} in which at least some
+  rain fell
 \item
-  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at least some rain fell
+  \texttt{nd\_nonzero}: number of day(s) in month \texttt{m} in which at
+  least some rain fell\\
 \item
-  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which somerain fell
+  \texttt{m\_avg\_nonzero}: average inches of only day(s) in which some
+  rain fell
 \end{itemize}
 
 NumPy's \texttt{np.where()} function is useful here as are
