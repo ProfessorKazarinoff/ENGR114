@@ -396,7 +396,7 @@ file, leave out \texttt{\%matplotlib\ inline}.
 The Jupyter notebook code cell below shows the imports described above.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
@@ -412,13 +412,13 @@ The code below saves the Excel data file to the variable \texttt{df} and
 shows the first couple rows of \texttt{df}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{govt\PYZus{}camp\PYZus{}2013\PYZus{}01\PYZus{}to\PYZus{}2016\PYZus{}03.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{govt\PYZus{}camp\PYZus{}2013\PYZus{}01\PYZus{}to\PYZus{}2016\PYZus{}03.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:}              STATION           STATION\_NAME      DATE  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}2}]:}              STATION           STATION\_NAME      DATE  \textbackslash{}
         0  GHCND:USC00353402  GOVERNMENT CAMP OR US  20130101   
         1  GHCND:USC00353402  GOVERNMENT CAMP OR US  20130102   
         2  GHCND:USC00353402  GOVERNMENT CAMP OR US  20130103   
@@ -455,7 +455,7 @@ The code below drops the \texttt{STATION} and \texttt{STATION\_NAME}
 columns from dataframe \texttt{df}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATION}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATION\PYZus{}NAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATION}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATION\PYZus{}NAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -479,7 +479,7 @@ rerun the code cell, make sure to start at the beginning of the
 notebook.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
         \PY{n}{df}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{year}\PY{p}{)}
         \PY{n}{df}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{month}\PY{p}{)}
         \PY{n}{df}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{day}\PY{p}{)}
@@ -495,7 +495,7 @@ notebook.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:}    year  month  day  Precipitation\textbackslash{}n(inches)  Snow Depth\textbackslash{}n(inches)  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}4}]:}    year  month  day  Precipitation\textbackslash{}n(inches)  Snow Depth\textbackslash{}n(inches)  \textbackslash{}
         0  2013      1    1                     0.00                    44   
         1  2013      1    2                     0.01                    42   
         2  2013      1    3                     0.00                    42   
@@ -521,8 +521,8 @@ The code cell below shows how to convert the dataframe \texttt{df} into
 a NumPy array called \texttt{wd}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{wd}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wd}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -537,7 +537,6 @@ a NumPy array called \texttt{wd}.
 
     \end{Verbatim}
 \newpage
-
     \hypertarget{create-a-line-plot}{%
 \subsubsection{Create a line plot}\label{create-a-line-plot}}
 
@@ -556,7 +555,6 @@ The resulting plot should look something like the plot below:
 \includegraphics{images/plot1.png}
 \caption{Plot 1: Line Plot}
 \end{figure}
-
 \newpage
     \hypertarget{create-a-line-plot-with-two-lines}{%
 \subsubsection{Create a line plot with two
@@ -590,27 +588,36 @@ precipitation in 2014, etc. Include a title on each subplot and a y-axis
 label on each subplot. On the bottom subplot (Precipitation in 2016),
 include an x-axis label.
 
-Use NumPy's \texttt{np.where()} function to save the precipitation data
-(number of inches only) exclusively for days in the year 2013 to a NumPy
-array called \texttt{precip\_2013}. Use the \texttt{plt.subplots()}
-method to plot the \texttt{precip\_2013} data in the first subplot.
+Use NumPy's \texttt{np.where()} function or boolean masks to save the
+precipitation data (number of inches only) exclusively for days in the
+year 2013 to a NumPy array called \texttt{precip\_2013}. Use the
+\texttt{plt.subplots()} method to plot the \texttt{precip\_2013} data in
+the first subplot.
 
 Complete the same type of indexing operation on the precipitation data
 for 2014, then 2015, then 2016. Create a subplot for each year. The plot
 for 2016 should include an x-axis label and have the same axis limits as
 the x-axis limits in the other subplots.
 
-The resulting figure which contains four subplots, one subplot for each
-year, should look something like below:
+\begin{quote}
+Hint: When \texttt{plt.subplots()} is called, include the keyword
+argument \texttt{figsize=(9,9)}. This keyword argument makes the figure
+larger and leaves more space for the axis labels and titles of each
+subplot. Modify the numbers \texttt{(9,9)} to change the figure width
+and height.
+\end{quote}
 
-\begin{figure}
+The resulting figure which contains four subplots, one subplot for each
+year, should look something like below. The command
+\texttt{plt.tight\_layout()} can also help with subplot spacing.
+
+\begin{figure}[h!]
 \centering
 \includegraphics{images/plot3.png}
 \caption{Plot 3: Four Subplots}
 \end{figure}
 
 \newpage
-
     \hypertarget{y-y-plot}{%
 \subsubsection{y-y plot}\label{y-y-plot}}
 
@@ -636,7 +643,7 @@ functions. These two NumPy functions operate like Python's \texttt{and},
 \texttt{or} keywords, but can be applied to arrays of boolean values.
 \end{quote}
 
-Index out the same days' (Nov 1, 2013 to Fab 27, 2014) \textbf{snow
+Index out the same days' (Nov 1, 2013 to Feb 27, 2014) \textbf{snow
 fall} data and save the snow fall data in this date range to a NumPy
 array called \texttt{winter13\_14\_sf}.
 
