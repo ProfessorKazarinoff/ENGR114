@@ -1,24 +1,7 @@
-%% ENGR114_lab_assignment.tplx %%
-%
-% Built off of the article.tplx template %
+%preamble.tex
 
 
-% Default to the notebook output style
-
-    
-
-
-% Inherit from the specified cell style.
-
-
-
-
-    
-    \documentclass[11pt]{article}
-
-    
-    
-    %% installed packages_rev2.tplx %%
+%% installed packages_rev2.tplx %%
 
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -50,7 +33,7 @@
     \makeatother
     \let\Oldincludegraphics\includegraphics
     % Set max figure width to be 80% of text width, for now hardcoded.
-    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+   % \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
     % Ensure that by default, figures have no caption (until we provide a
     % proper Figure object with a Caption API and a way to capture that
     % in the conversion process - todo).
@@ -91,7 +74,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{01 Lab06 Audio Filtering} 
+\newcommand{\labtitle}{Lab06 Image Filtering} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -340,39 +323,3 @@
 \hoffset = -0.5in
 
 \pagestyle{fancy}
-
-    
-
-    \begin{document}
-    
-    
-    
-
-    
-    
-
-    
-    \hypertarget{lab-06---audio-filtering}{%
-\section{Lab 06 - Audio Filtering}\label{lab-06---audio-filtering}}
-
-    \hypertarget{deliverables}{%
-\subsection{Deliverables}\label{deliverables}}
-
-Each student's submission for the lab should be one of the following
-files (you do not need to submit all the .py files used in the lab, just
-the .py files you were primarily responsible for). Upload these two
-files to the D2L Lab 6 Uploads folder.
-
-\textbf{lab6.py}
-
-    \hypertarget{by-p.-kazarinoff-portland-community-college-2018}{%
-\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
-College,
-2018}}{By P. Kazarinoff, Portland Community College, 2018}}\label{by-p.-kazarinoff-portland-community-college-2018}}
-
-
-    % Add a bibliography block to the postdoc
-    
-    
-    
-    \end{document}
