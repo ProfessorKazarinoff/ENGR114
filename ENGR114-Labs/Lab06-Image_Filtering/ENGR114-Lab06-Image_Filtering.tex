@@ -2,27 +2,19 @@
 %
 % Built off of the article.tplx template %
 
-
 % Default to the notebook output style
-
-    
-
-
 % Inherit from the specified cell style.
-
-
 
 \documentclass[11pt]{article}
 
 \input{preamble.tex}
     
-
-    \begin{document}
+\begin{document}
   
-    \hypertarget{lab-06---image-filtering}{%
+\hypertarget{lab-06---image-filtering}{%
 \section{Lab 06 - Image Filtering}\label{lab-06---image-filtering}}
 
-    \hypertarget{prelab}{%
+\hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
 Before starting the lab, read through this entire document. Then review
@@ -33,7 +25,7 @@ here:
 Also be familiar with Python's \texttt{input()} function and \texttt{if}
 / \texttt{elif} / \texttt{else} selection structures.
 
-    \hypertarget{lab}{%
+\hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
 In this lab assignment, you will show a user an image and solicit input
@@ -42,7 +34,7 @@ input, you will re-display the image with modifications.
 
 The image below is the image the user will modify:
 
-\begin{figure}[h!]
+\begin{figure}[!h]
 \centering
 \includegraphics[scale=0.3]{stinkbug.png}
 \caption{stinkbug}
@@ -56,7 +48,7 @@ demonstrates how to read and display an image with Matplotlib. Ensure
 the image you want to display is in the same directory as your Jupyter
 notebook.
 
-    \begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
@@ -69,22 +61,24 @@ notebook.
         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{combined_files/combined_3_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
+\begin{figure}[!h]
+\begin{center}
+    \includegraphics[scale=0.5]{combined_files/combined_3_0.png}
+\end{center}
+\end{figure}
     
-    The \texttt{stinkbug.png} image is a gray scale image, but Matplotlib
+The \texttt{stinkbug.png} image is a gray scale image, but Matplotlib
 renders it as a color image. We can include an extra argument in the
 \texttt{ax.imshow()} method to choose a different color map. A list of
 all the possible color maps can be found in the Matplotlib documentation
 (\url{https://matplotlib.org/examples/color/colormaps_reference.html}).
 
+
+
 The code cell below demonstartes how to use a custom color map to
 display the image
 
-    \begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
         
@@ -96,17 +90,19 @@ display the image
         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{combined_files/combined_5_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.35]{combined_files/combined_5_0.png}
+\end{center}
+\end{figure}
     
-    Construct a script that tells a user the possible colormap options. Then
+Construct a script that tells a user the possible colormap options. Then
 use Python's \texttt{input()} function to ask the user for a color map.
 Next, ask the user if they want gridlines. Finally ask the user if they
 want tick labels. After the user selects all of the options, show the
 user the image based on their preferences.
+
+\newpage
 
 The code below demonstrates how the script might function:
 
@@ -123,13 +119,13 @@ Do you want tick labels? (yes or no):
 no
 \end{verbatim}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.5]{images/image1.png}
+\includegraphics[scale=0.4]{images/image1.png}
 \caption{Image terrain colormap, no gridlines, no tick labels}
 \end{figure}
 
-    \hypertarget{deliverables}{%
+\hypertarget{deliverables}{%
 \subsection{Deliverables}\label{deliverables}}
 
 Each student's submission for the lab should be one Jupyter notebook
@@ -140,14 +136,9 @@ box.
 
 \textbf{lab6.ipynb}
 
-    \hypertarget{by-p.-kazarinoff-portland-community-college-2019}{%
+\hypertarget{by-p.-kazarinoff-portland-community-college-2019}{%
 \paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
 College,
 2019}}{By P. Kazarinoff, Portland Community College, 2019}}\label{by-p.-kazarinoff-portland-community-college-2019}}
 
-
-    % Add a bibliography block to the postdoc
-    
-    
-    
-    \end{document}
+\end{document}
