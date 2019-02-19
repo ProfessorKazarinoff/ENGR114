@@ -50,7 +50,7 @@
     \makeatother
     \let\Oldincludegraphics\includegraphics
     % Set max figure width to be 80% of text width, for now hardcoded.
-    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    %\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
     % Ensure that by default, figures have no caption (until we provide a
     % proper Figure object with a Caption API and a way to capture that
     % in the conversion process - todo).
@@ -353,7 +353,7 @@
 
     
     \hypertarget{lab-06---web-apis}{%
-\section{Lab 06 - Web API's}\label{lab-06---web-apis}}
+\section{Lab 05 - Web API's}\label{lab-06---web-apis}}
 
     \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
@@ -381,7 +381,7 @@ weather data from the Natick, MA weather station.
 \subsubsection{Example of Final
 Functionality}\label{example-of-final-functionality}}
 
-Below is an example of how the final lab7.py script will work:
+Below is an example of how the final lab5.ipynb script will work:
 
 \begin{verbatim}
 
@@ -390,9 +390,9 @@ Which weather type (temperature, humidity, rainfall or pressure)? temperature
 How many data points (maximum of 8000)? 800
 \end{verbatim}
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
-\includegraphics{images/plot_of_weather_data.png}
+\includegraphics[scale=0.65]{images/plot_of_weather_data.png}
 \caption{Plot of Temperature}
 \end{figure}
 
@@ -400,16 +400,18 @@ How many data points (maximum of 8000)? 800
 \subsubsection{Outline of steps}\label{outline-of-steps}}
 
 In order for you to accomplish this task, your code will need to do a
-couple of things: * Validate the user input so that the user can only
-select certain options: * Weather data types: temperature, humidity,
-pressure or rainfall * Number of data points: maximum of 8000, minimum
-of 1, integers only * Call the ThingSpeak web API to import the data
-from the weather station in Natick, MA. * Clean up the data received
-from the ThingSpeak web API and produce a simple 1D array or series
-which contains the data points. * Build a plot that displays the data
-the user asked for. The plot should contain the data point number on the
-x-axis and the weather data on the y-axis. Include axis labels (with
-units) and a descriptive title.
+couple of things: 
+
+Validate the user input so that the user can only
+select certain options:
+\begin{itemize}
+\item Weather data types: temperature, humidity, pressure or rainfall
+\item Number of data points: maximum of 8000, minimum of 1, integers only
+\item Call the ThingSpeak web API to import the data from the weather station in Natick, MA. 
+\item Clean up the data received from the ThingSpeak web API and produce a simple 1D array or series which contains the data points. 
+\item Build a plot that displays the data the user asked for. 
+\item The plot should contain the data point number on the x-axis and the weather data on the y-axis. Include axis labels (with units) and a descriptive title.
+\end{itemize}
 
     \hypertarget{functions}{%
 \subsubsection{Functions}\label{functions}}
@@ -434,7 +436,7 @@ retrieve the desired weather data. See
 http://www.mathworks.com/help/thingspeak/get-channel-field-feed.html and
 Pandas \texttt{read\_csv()} function.
 
-An example web API call is:
+An example web API call is: \\
 \texttt{df\ =\ pd.read\_csv(\textquotesingle{}https://api.thingspeak.com/channels/12397/fields/4.csv?results=20\textquotesingle{})}
 Only the desired weather data type and number of data points should be
 retrieved. Note the input for this function will come from the
@@ -496,7 +498,7 @@ Ensure all the code is sectioned and commented.
 Each student's submissions for the lab must contain the following files
 (all four function files and your Python script that calls the four
 functions) regardless of which function you constructed. Upload these 5
-files to the D2L Lab 7 Uploads folder.
+files to the D2L Lab 5 Uploads folder.
 
 \begin{itemize}
 \item

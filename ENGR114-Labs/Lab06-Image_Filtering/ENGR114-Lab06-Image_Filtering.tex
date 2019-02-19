@@ -32,12 +32,12 @@ In this lab assignment, you will show a user an image and solicit input
 from the user regarding how to modify the image. Based on the user's
 input, you will re-display the image with modifications.
 
-The image below is the image the user will modify:
+The image the user will modify is below:
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.3]{stinkbug.png}
-\caption{stinkbug}
+\caption{stinkbug.png}
 \end{figure}
 
 The image can be found on-line here:
@@ -45,8 +45,8 @@ The image can be found on-line here:
 
 Images can be displayed using Python and Matplotlib. The code cell below
 demonstrates how to read and display an image with Matplotlib. Ensure
-the image you want to display is in the same directory as your Jupyter
-notebook.
+the image you want to display is in the same directory as as the Jupyter
+notebook that contains the code.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
@@ -76,7 +76,7 @@ all the possible color maps can be found in the Matplotlib documentation
 
 
 The code cell below demonstartes how to use a custom color map to
-display the image
+display the image.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
@@ -96,8 +96,13 @@ display the image
 \end{center}
 \end{figure}
     
-Construct a script that tells a user the possible colormap options. Then
-use Python's \texttt{input()} function to ask the user for a color map.
+Construct a script that tells a user their possible colormap options. Then use Python's \texttt{input()} function to ask the user for their preferred a color map. Give the user the options of:
+\begin{itemize}
+\item \texttt{Greys}
+\item \texttt{gist\_earth}
+\item \texttt{ocean}
+\item \texttt{terrain}
+\end{itemize} 
 Next, ask the user if they want gridlines. Finally ask the user if they
 want tick labels. After the user selects all of the options, show the
 user the image based on their preferences.
@@ -107,7 +112,7 @@ user the image based on their preferences.
 The code below demonstrates how the script might function:
 
 \begin{verbatim}
-Your color maps options are: Greys, gist_earth, ocean and terrain
+Your color maps options are: Greys, gist_earth, ocean or terrain
 
 Please select a color map:
 terrain
