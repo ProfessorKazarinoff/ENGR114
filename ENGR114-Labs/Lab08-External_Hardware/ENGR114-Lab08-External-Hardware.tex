@@ -1,0 +1,684 @@
+%% ENGR114_lab_assignment.tplx %%
+   
+\documentclass[11pt]{article}
+
+ \input{preable.tex}   
+ 
+
+ \begin{document}
+    
+    \hypertarget{lab-09---external-hardware}{%
+\section{Lab 09 - External Hardware}\label{lab-09---external-hardware}}
+
+    In this lab, you will use Python to communicate to a piece of external
+hardware.
+
+    \hypertarget{prelab}{%
+\subsection{Prelab}\label{prelab}}
+
+Before starting the lab, familiarize yourself with what an Arduino is
+and what an Arduino can be used for. You will find numerous projects if
+you Google ``Arduino project''. Download the Arduino IDE using the
+following link:
+
+\begin{quote}
+https://www.arduino.cc/en/Main/Software
+\end{quote}
+
+Be sure to select: \textbf{{[}Windows ZIP for non-admin install{]}} as
+new software can not be installed on lab computers without administrator
+privileges.
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/arduino_download_page.png}
+\caption{Arduino IDE Download Page}
+\end{figure}
+
+Investigate the Arudino IDE (launch by double clicking Arduino.exe). See
+what is available in the {[}File{]} --\textgreater{} {[}Examples{]}
+menu. Before lab, also familiarize yourself with the concept of serial
+communication. In this lab, Python will communicate with an Arduino over
+a serial connection. Serial communication is one of the older computer
+hardware communication specifications. Serial communication is a
+precursor to USB (universal \emph{serial} bus) communication used by
+keyboards, mice, printers, thumb drives etc.
+
+The first part of this lab will follow a tutorial from the Sparkfun
+Inventor's Kit:
+
+\begin{quote}
+https://www.sparkfun.com/products/retired/12060
+\end{quote}
+
+Click on the \textbf{{[}Documents{]}} link on the product page to review
+the guide.
+
+    \hypertarget{lab}{%
+\subsection{Lab}\label{lab}}
+
+For this group lab assignment, your group will use Python to interact
+with an Arduino to dynamically turn on and off an LED, and then use
+Python to collect and plot the sensor data. Your group will construct
+two Python scripts and use two Arduino scripts to complete these tasks.
+At the end of the lab, you will be able to use Python to interact with
+external hardware.
+
+    An outline of the steps to complete the lab is below:
+
+\hypertarget{part-1-turn-an-led-on-and-off-with-python-and-an-arduino}{%
+\subsubsection{Part 1: Turn an LED on and off with Python and an
+Arduino}\label{part-1-turn-an-led-on-and-off-with-python-and-an-arduino}}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Download the Arduino IDE
+\item
+  Wire an LED and resistor to the Arduino
+\item
+  Upload the Arduino example sketch \textbf{\emph{blink.ino}} onto the
+  Arduino. Confirm your Arduino and LED blinks.
+\item
+  Load the Arduino example sketch \textbf{\emph{PhysicalPixel.ino}}
+\item
+  Use the serial monitor to turn the Arduino LED on and off
+\item
+  Build a Python script to turn the Arduino LED on and off
+\end{enumerate}
+
+    \hypertarget{part-2-measure-sensor-output-with-python-and-an-arduino}{%
+\subsubsection{Part 2: Measure sensor output with Python and an
+Arduino}\label{part-2-measure-sensor-output-with-python-and-an-arduino}}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Wire a little blue potentiometer dial to the Arduino
+\item
+  Copy and load the \textbf{\emph{potentiometer.ino}} sketch onto the
+  Arduino
+\item
+  Twist the potentiometer to turn the LED connected to the Arduino on
+  and off
+\item
+  Use the Arduino Serial Monitor and Arduino Serial Plotter to see the
+  potentiometer reading
+\item
+  Build a Python script and to record the potentiometer level and draw a
+  plot
+\end{enumerate}
+
+    You will complete this lab in groups. Below are details for each of the
+steps outlined above.
+
+\hypertarget{part-1.-turn-an-led-on-and-off-with-python-and-an-arduino}{%
+\subsubsection{Part 1. Turn an LED on and off with Python and an
+Arduino}\label{part-1.-turn-an-led-on-and-off-with-python-and-an-arduino}}
+
+    \hypertarget{a-download-the-arduino-ide}{%
+\paragraph{(a) Download the Arduino
+IDE}\label{a-download-the-arduino-ide}}
+
+Download the Arduino IDE using the following link:
+
+\begin{quote}
+https://www.arduino.cc/en/Main/Software
+\end{quote}
+
+Scroll down the page to the \textbf{{[}Download the Arduino IDE{]}}
+section. Be sure to select: \textbf{{[}Windows ZIP for for non-admin
+install{]}} as new software can not be installed on lab computers
+without administrator privileges. You can select \textbf{{[}JUST
+DOWNLOAD{]}} from the donation screen. Extract the downloaded .zip
+folder to your thumb drive or the desktop.
+
+    \hypertarget{b-wire-an-led-to-the-arduino}{%
+\paragraph{(b) Wire an LED to the
+Arduino}\label{b-wire-an-led-to-the-arduino}}
+
+From the Arduino kit, take out an LED (any color), a 330 Ohm resistor
+and two jumper wires. Connect the LED, resistor and wires as shown
+below. Also see the SIK GUIDE page 19 and the SparkFun Iventor's kit
+online guide:
+
+\begin{quote}
+https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1a-blink-an-led
+\end{quote}
+
+Note that LED's have two different length ``legs''. The short leg
+connects to ground (thru a resistor), the long leg connects to Pin 13 on
+the Arduino.
+
+\begin{figure}
+\centering
+\includegraphics{images/Arduino_LED_fritzing.png}
+\caption{Arduino with LED Frizting}
+\end{figure}
+
+    \hypertarget{c-upload-the-arduino-example-sketch-blink.ino-onto-the-arduino.-confirm-your-arduino-and-led-blinks.}{%
+\paragraph{\texorpdfstring{(c) Upload the Arduino example sketch
+\textbf{Blink.ino} onto the Arduino. Confirm your Arduino and LED
+blinks.}{(c) Upload the Arduino example sketch Blink.ino onto the Arduino. Confirm your Arduino and LED blinks.}}\label{c-upload-the-arduino-example-sketch-blink.ino-onto-the-arduino.-confirm-your-arduino-and-led-blinks.}}
+
+Open the Arduino IDE folder and open the Arduino.exe program. Open the
+Arduino \textbf{\emph{Blink.ino}} sketch by going to: {[}File{]}
+--\textgreater{} {[}Examples{]} --\textgreater{} {[}Basics{]}
+--\textgreater{} {[}01.Blink{]}.
+
+Connect the Arduino to the computer using the red USB cable. Note that
+USB ports in monitors sometimes do not work correctly with Arduinos. Use
+a USB port which is part of the computer. In the Arduino IDE Window that
+contains the \textbf{\emph{Blink.ino}} sketch, click the check mark to
+Verify, then click the arrow to Upload.
+
+\begin{figure}
+\centering
+\includegraphics{images/Check_to_Verify.png}
+\caption{Check to Verify}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/Arrow_to_Upload.png}
+\caption{Arrow to Upload}
+\end{figure}
+
+Once the upload is complete, the red LED on the Arduino should blink on
+and off.
+
+If you don't see the Arduino's LED blinking, you need to do some trouble
+shooting:
+
+\begin{itemize}
+\tightlist
+\item
+  Check the COM Port under {[}Tools{]} --\textgreater{} {[}Ports{]}
+\item
+  Check which type of board is selected under {[}Tools{]}
+  --\textgreater{} {[}Board{]}. \textbf{Arduino/Genuino Uno} needs to be
+  selected
+\item
+  Try unplugging and re-plugging in the Arduino's red USB cable. Ensure
+  the cable is seated in the computer and Arduino.
+\end{itemize}
+
+    \hypertarget{d-load-the-arduino-example-sketch-physicalpixel.ino}{%
+\paragraph{(d) Load the Arduino example sketch
+PhysicalPixel.ino}\label{d-load-the-arduino-example-sketch-physicalpixel.ino}}
+
+Open the Arduino \textbf{\emph{PhysicalPixel.ino}} sketch by going to:
+{[}File{]} --\textgreater{} {[}Examples{]} --\textgreater{}
+{[}04.Communication{]} --\textgreater{} {[}PhysicalPixel{]}. Once again,
+In the Arduino IDE Window that contains the PhysicalPixel sketch, click
+the check mark to Verify, then click the arrow to Upload.
+
+    \hypertarget{e-use-the-serial-monitor-to-turn-the-arduino-led-on-and-off}{%
+\paragraph{(e) Use the serial monitor to turn the Arduino LED on and
+off}\label{e-use-the-serial-monitor-to-turn-the-arduino-led-on-and-off}}
+
+In the Arduino IDE Window that contains the
+\textbf{\emph{PhysicalPixel.ino}} sketch, open the Serial Monitor by
+going to {[}Tools{]} --\textgreater{} {[}Serial Monitor{]}.
+
+In the Serial Monitor type: \texttt{H} and click {[}Send{]} (or press
+ENTER). Then type: \texttt{L} and click {[}Send{]} (or press ENTER). You
+should see the Arduino LED switch on and off. If the LED does not turn
+on and off, make sure that the Port is set correctly in {[}Tools{]}
+--\textgreater{} {[}Port{]} and make sure that the Serial Monitor is set
+to 9600 baud.
+
+    \hypertarget{f-use-the-python-repl-to-turn-the-arduino-led-on-and-off}{%
+\paragraph{(f) Use the Python REPL to turn the Arduino LED on and
+off}\label{f-use-the-python-repl-to-turn-the-arduino-led-on-and-off}}
+
+At the Anaconda Prompt, type \texttt{\textgreater{}\ python} to enter
+the Python REPL. At the Python REPL, type the following commands. If the
+command is preceeded by a REPL prompt
+\texttt{\textgreater{}\textgreater{}\textgreater{}} type the command
+into the REPL. If the line does not start with a REPL prompt, this line
+represents expected output.
+
+\begin{verbatim}
+>>> import serial
+>>> import time
+
+>>> ser = serial.Serial('COM4',9600)  # open serial port
+>>> time.sleep(2)                     # wait 2 seconds for connection
+>>> ser.name()
+'COM4'
+
+>>> ser.write(b'H')
+# LED turns on
+
+>>> ser.write(b'L')
+# LED turns off
+
+>>> ser.write(b'H')
+# LED turns on
+
+>>> ser.write(b'L')
+# LED turns off
+
+>>> ser.close()
+>>> exit()
+\end{verbatim}
+
+    \hypertarget{f-build-a-python-script-to-turn-the-arduino-led-on-and-off}{%
+\paragraph{(f) Build a Python script to turn the Arduino LED on and
+off}\label{f-build-a-python-script-to-turn-the-arduino-led-on-and-off}}
+
+If the Arduino is working correctly and the LED can be turned on and off
+by typing \texttt{H} and \texttt{L} in the Serial Monitor, close the
+Serial Monitor. If the Serial Monitor is left open, Python will not be
+able to talk to the Arduino.
+
+Now construct a Python script called \textbf{LED.ipynb} which turns the
+Arduino LED on and off, just like you were able to turn the LED on and
+off with the Serial Monitor. To do this, you have to program Python to
+send the characters \texttt{L} and \texttt{H} over the Serial line to
+the Arduino.
+
+    At the start of your Python script include a docstring
+(\texttt{"""\ """}) section the contains a line with the program title,
+and separate lines that contain your name, the lab number and lab name,
+course quarter and date. Below the docstring, start your script.
+
+The first code section of your script needs to include imports for the
+PySerial library. Include the lines:
+
+\begin{verbatim}
+import serial
+import time
+\end{verbatim}
+
+The next section of your script needs to set up the serial line for
+communication. Note the
+\texttt{Port\ =\ \textquotesingle{}COM4\textquotesingle{}} line must be
+set according to the port the Arduino is connected to. Insert the code
+below:
+
+\begin{verbatim}
+ser = serial.Serial('COM4')  # open serial port
+print(ser.name)              # check which port was really used
+
+# code to run          
+
+ser.close() 
+\end{verbatim}
+
+Before you run the open serial port section of code, put in place the
+line of code to close the serial port. If the serial port is not closed,
+you will not be able to use the serial port the next time your script
+runs. When you have problems connecting to the Arduino with Python,
+often it is because the serial line was not closed.
+
+Insert one of the sections of code below between the opening and closing
+of the serial port:
+
+\begin{verbatim}
+# turn on LED
+ser.write(b'H')
+time.sleep(1)
+\end{verbatim}
+
+or
+
+\begin{verbatim}
+# turn off LED
+ser.write(b'L')
+time.sleep(1)
+\end{verbatim}
+
+Run the entire script to ensure there are no errors and you can open and
+close the serial port. A common error is the serial port
+\texttt{\textquotesingle{}COM\#\textquotesingle{}} is not set correctly.
+Make sure you can turn the LED turns on and off by running the two sections
+of code above.
+
+Next, build a new section of code between the Open serial section and
+Close serial section. This section of code sends an
+\texttt{\textquotesingle{}H\textquotesingle{}} character over the serial
+line waits a second, then sends a
+\texttt{\textquotesingle{}L\textquotesingle{}} character over the serial
+line and waits another second. The code below is designed to blink the
+LED on and off 10 times.
+
+\begin{verbatim}
+# code to run
+
+for t in range(10);
+    ser.write(b'H')
+    time.sleep(1)
+    ser.write(b'L')
+    time.sleep(1)
+\end{verbatim}
+
+    Run the entire Python script and watch the Arduino LED blink 10 times. A
+common problem is the serial port was not closed before the script
+starts. Make sure the Arduino Serial Monitor is closed and try running
+\texttt{\textgreater{}\textgreater{}\textgreater{}\ ser.close()} at the
+Python REPL.
+
+After you successfully blink the LED with Python, use your Python coding
+skills to ask a user for input and turn on or off the Arduino's LED
+based on user input. Complete this task with the \texttt{input()}
+function running in a while loop. Within the while loop, add an if-statement that allows the program to break out of the loop (remember the
+keyword \texttt{break}) and go to the \texttt{ser.close()} section. The
+serial port must be closed for Python to use the serial line again.
+
+Below is an example of an if/break statement:
+
+\begin{verbatim}
+if user_input == 'q':
+    break
+    
+\end{verbatim}
+
+When your Python script runs, the user should see functionality like
+below:
+
+\begin{verbatim}
+>>> Type H to turn on the LED, L to turn off the LED or q to quit: H
+[LED TURNS ON]
+>>> Type H to turn on the LED, L to turn off the LED or q to quit: L
+[LED TURNS OFF]
+>>> Type H to turn on the LED, L to turn off the LED or q to quit: q
+[PROGRAM TERMINATES]
+\end{verbatim}
+
+\newpage
+
+    \hypertarget{part-2.-measure-sensor-output-with-python-and-an-arduino}{%
+\subsubsection{Part 2. Measure sensor output with Python and an
+Arduino}\label{part-2.-measure-sensor-output-with-python-and-an-arduino}}
+
+Once you have completed Part 1 of the lab and can turn the Arduino LED
+on and OFF using Python continue on to Part 2. In Part 2 of the lab, you
+will use Python to read a sensor (a potentiometer dial) connected to the
+Arduino and plot the data.
+
+    \hypertarget{a-wire-a-potentiometer-dial-to-the-arduino}{%
+\paragraph{(a) Wire a potentiometer dial to the
+Arduino}\label{a-wire-a-potentiometer-dial-to-the-arduino}}
+
+First, you need to connect connect the potentiometer to the Arduino. You
+should leave your LED and resistor attached as you will use the LED and
+resistor with the potentiometer. Unplug the Arduino USB cable and
+connect the small blue potentiometer dial to your Arduino as shown
+below. Also see the SIK GUIDE page 25 and the SparkFun Iventor's kit
+online guide:
+
+\begin{quote}
+https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1b-potentiometer
+
+\end{quote}
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/redboard_pot_led_fritzing.png}
+\caption{Arduino Potentiometer Fritzing Schematic}
+\end{figure}
+
+\newpage
+
+    \hypertarget{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino}{%
+\paragraph{(b) Copy and load the potentiometer.ino sketch onto the
+Arduino}\label{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino}}
+
+Open a new sketch in the Arduino IDE by going to {[}File{]}
+--\textgreater{} {[}New{]}. Copy the code below into the new sketch and
+save the sketch as \textbf{\emph{potentiometer.ino}}
+
+\begin{verbatim}
+// potentiometer_read.ino
+// reads a potentiometer and sends value over serial
+
+int sensorPin = A0; // The potentiometer is connected to analog pin 0
+int ledPin = 13; // The LED is connected to digital pin 13
+int sensorValue; // an integer variable to store the potentiometer reading
+
+void setup() // this function runs once when the sketch starts
+{
+// make the LED pin (pin 13) an output pin
+pinMode(ledPin, OUTPUT);
+// initialize serial communication:
+Serial.begin(9600);
+}
+
+void loop() // this function runs repeatedly after setup() finishes
+{
+sensorValue = analogRead(sensorPin); // read the voltage at pin A0
+Serial.println(sensorValue); // Output sensor value to Serial Monitor
+if (sensorValue < 500) { // if sensor output is less than 500,
+digitalWrite(ledPin, LOW); } // Turn the LED off
+else { // if sensor output is greater than 500
+digitalWrite(ledPin, HIGH); } // Keep the LED on
+delay(100); // Pause 100 milliseconds before next reading
+}
+\end{verbatim}
+
+Plug the Arduino USB cable back into the computer. In the Arduino IDE
+window that contains the potentiometer \textbf{\emph{potentiometer.ino}}
+sketch, click the check mark to Verify the click the arrow to Upload the
+potentiometer \textbf{\emph{potentiometer.ino}} sketch to the Arduino.
+
+    \hypertarget{c-twist-the-potentiometer-to-turn-the-led-connected-to-the-arduino-on-and-off}{%
+\paragraph{(c) Twist the potentiometer to turn the LED connected to the
+Arduino on and
+off}\label{c-twist-the-potentiometer-to-turn-the-led-connected-to-the-arduino-on-and-off}}
+
+After the potentiometer \textbf{\emph{potentiometer.ino}} sketch is
+uploaded to the Arduino, twist the small blue potentiometer dial back
+and forth and watch the LED turn on and off (the dial can be stiff). The
+on/off point should be about half way through the little blue
+potentiometer's rotation. If the LED does not turn on and off, double
+check your wiring and try uploading the
+\textbf{\emph{potentiometer.ino}} sketch again. Ensure the Serial
+Monitor is closed and that Python closed the Serial Port before you
+upload the sketch.
+
+    \hypertarget{d-use-the-arduino-serial-monitor-and-serial-plotter-to-see-the-potentiometer-reading}{%
+\paragraph{(d) Use the Arduino Serial Monitor and Serial Plotter to see
+the potentiometer
+reading}\label{d-use-the-arduino-serial-monitor-and-serial-plotter-to-see-the-potentiometer-reading}}
+
+Open the Arduino Serial Monitor in the Arduino IDE by going to
+{[}Tools{]} --\textgreater{} {[}Serial Monitor{]}.
+
+\begin{figure}
+\centering
+\includegraphics{images/Tools_SerialMonitor.png}
+\caption{Arduino Tools --\textgreater{} Serial Monitor}
+\end{figure}
+
+You should see numbers scrolling down the Serial Monitor if the
+potentiometer \textbf{\emph{potentiometer.ino}} sketch is working
+properly. Twist the little blue potentiometer and watch the numbers
+scrolling down the Serial Monitor change.
+
+\begin{figure}
+\centering
+\includegraphics{images/serial_monitor_output.png}
+\caption{Arduino Serial Monitor}
+\end{figure}
+
+Next, close the Arduino Serial Monitor and open the Arduino Serial
+Plotter by going to {[}Tools{]} --\textgreater{} {[}Serial Plotter{]}.
+
+\begin{figure}
+\centering
+\includegraphics{images/Tools_SerialPlotter.png}
+\caption{Arduino Tools --\textgreater{} Serial Plotter}
+\end{figure}
+
+You should see a plot with a moving line. Twist the little blue
+potentiometer and observe the line on the plot move up and down.
+
+If the Serial Plotter works, close the Serial Plotter Window. If Serial
+Plotter isn't working, make sure the
+\texttt{\textquotesingle{}COM\textquotesingle{}} port is set correctly
+in the Arduino IDE, and ensure the serial port was closed by Python. The
+Arduino Serial Monitor and Serial Plotter can not be open at the same
+time, and both need to be closed before Python can communicate with the
+Arduino.
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/serial_plotter_output.png}
+\caption{Arduino Serial Plotter}
+\end{figure}
+
+    \hypertarget{e-use-the-python-repl-to-read-the-potentiometer-data}{%
+\paragraph{(e) Use the Python REPL to read the potentiometer
+data}\label{e-use-the-python-repl-to-read-the-potentiometer-data}}
+
+At the Anaconda prompt, type \texttt{\textgreater{}\ python} to enter
+the Python REPL. At the Python REPL, type the following commands. If the
+command is preceeded by a REPL prompt
+\texttt{\textgreater{}\textgreater{}\textgreater{}} type the command
+into the REPL. If the line does not start with a REPL prompt, this line
+represents expected output.
+
+\begin{verbatim}
+# serial read using the Python REPL
+
+>>> import serial
+>>> import time
+>>> ser = serial.Serial('COM4',9600)
+>>> time.sleep(2)
+>>> b = ser.readline()
+>>> b
+b'409\r\n'
+>>> type(b)
+<class 'bytes'>
+>>> str_rn = b.decode()
+>>> str_rn
+'409\r\n'
+>>> str = str_rn.rstrip()
+>>> str
+'409'
+>>> type(str)
+<class 'str'>
+>>> f = float(str)
+>>> f
+409.0
+>>> type(f)
+<class 'float'>
+>>> ser.close()
+>>> exit()
+\end{verbatim}
+
+    \hypertarget{f-build-a-python-script-and-to-record-the-potentiometer-level-and-draw-a-plot}{%
+\paragraph{(f) Build a Python script and to record the potentiometer
+level and draw a
+plot}\label{f-build-a-python-script-and-to-record-the-potentiometer-level-and-draw-a-plot}}
+
+After you can successfully turn the Arduino LED on and off by twisting
+the little blue potentiometer, and can see the plot line moving up and
+down in the Serial Plotter, build a Python script which reads and plots
+the potentiometer value.
+
+To read the potentiometer value with Python, a new script called
+\textbf{potentiometer.ipynb} should be created. At the start of the
+Python script include the standard docstring header within triple quotes
+\texttt{"""\ """} Include a line for a title, and lines for your name,
+the lab number and name, course/quarter and date.
+
+The first lines of code in the script need to import the
+\textbf{PySerial} package and the time module:
+
+\begin{verbatim}
+import serial
+import time
+\end{verbatim}
+
+The next section of the script needs to set up the serial line for
+communication and read the sensor value of the potentiometer. Note the
+Port (\texttt{\textquotesingle{}COM4\textquotesingle{}}) must be set
+according to the port the Arduino is connected to.
+
+\begin{verbatim}
+# set up the serial line
+ser = serial.Serial('COM4', 9600)
+time.sleep(2)
+print(ser.name)
+
+# Read and record the data
+data =[]                           # initialize and empty list to store the data
+for i in range(50):
+    b = ser.readline()             # read a byte string line from the Arduino's serial output
+    string_n = b.decode()          # decode byte string into regular string with \n and \r 
+    string = string_n.rstrip()     # remove \n and \r from string
+    flt = float(string)            # convert string to float
+    print(flt)
+    data.append(flt)               # add float to the end of the data list
+    time.sleep(0.1)                # wait (sleep) 0.2 seconds before the next reading
+
+ser.close()
+
+# Plot the data
+\end{verbatim}
+
+Run the script and twist the potentiometer. You should see the
+potentiometer values running by in the Python REPL command window.
+
+Finally, fill in the remaining two sections in the script. Include a
+section that asks a user for how long to collect data. Limit the user to
+a maximum of 60 seconds. Then include a section that plots the
+potentiometer reading vs.~time. Note that the data is recorded every
+10th of a second.
+
+When the Python script runs, it should function in the following way:
+
+\begin{verbatim}
+Enter the number of seconds to record data (0 - 60) : 10
+\end{verbatim}
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/potentiometer_reading.png}
+\caption{matplotlib plot of potentiometer data}
+\end{figure}
+
+    \hypertarget{going-further}{%
+\subsubsection{Going further}\label{going-further}}
+
+If you have time, there is some additional functionality you can add to
+your Python script:
+
+\begin{itemize}
+\item
+  Display the high and low potentiometer readings
+\item
+  Connect a photocell to the Arduino and plot photocell readings with
+  Python
+\item
+  Build a dynamic plot using an animated line that changes as the
+  potentiometer value changes
+\end{itemize}
+
+    \hypertarget{deliverables}{%
+\subsection{Deliverables}\label{deliverables}}
+
+Make sure your group's Python and Arduino code are well commented and
+sectioned. Ensure the variable names are descriptive and there is enough
+documentation for another group of students to reuse the code without
+much trouble. Each student's submission for the lab should be one of the
+following files (you do not need to submit all the .ipynb files used in
+the lab, just the files you were primarily responsible for). Each
+student needs to upload one Python file and one Arduino file. Upload
+your files to the D2L Lab 8 Uploads folder.
+
+\textbf{LED.ipynb} and \textbf{PhysicalPixel.ino}
+
+or
+
+\textbf{potentiometer.ipynb} and \textbf{potentiometer.ino}
+
+    \hypertarget{by-p.-kazarinoff-portland-community-college-2018}{%
+\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
+College,
+2018}}{By P. Kazarinoff, Portland Community College, 2018}}\label{by-p.-kazarinoff-portland-community-college-2018}}
+
+\end{document}
