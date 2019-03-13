@@ -485,7 +485,7 @@ The Jupyter notebook code cell below demonstrates this functionality.
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}4}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{)}
 \end{Verbatim}
-\newpage
+
 
     Next use Python's \texttt{type()} function to verify the variable
 \texttt{wd} is a NumPy array. Also verify that the NumPy array is 5 by
@@ -504,7 +504,8 @@ dimensions of \texttt{wd}
     \begin{Verbatim}[commandchars=\\\{\}]
 <class 'numpy.ndarray'>
 (12, 31)
-\end{Verbatim}
+
+    \end{Verbatim}
 
     \hypertarget{clean-up-the-data}{%
 \subsubsection{Clean up the data}\label{clean-up-the-data}}
@@ -519,7 +520,7 @@ hundredths of an inch to inches. When the multiplication symbol
 element-wise. This means each value in the array is multiplied by the
 scalar ``0.01```.
 
-\begin{Verbatim}[commandchars=\\\{\}]
+    \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}6}]:} \PY{n}{wd} \PY{o}{=} \PY{n}{wd}\PY{o}{*}\PY{l+m+mf}{0.01}
 \end{Verbatim}
 
@@ -622,7 +623,7 @@ out. We put the results of the indexing operation back into the variable
 
 The code cell below creates the boolean mask, indexes out values from
 \texttt{wd} based on the mask, and puts the results back into
-\texttt{wd}. As a result, \texttt{wd} does not contain \texttt{-9.9999} in any
+\texttt{wd}, which as a result does not contain \texttt{-9.9999} in any
 location.
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -637,7 +638,6 @@ location.
  0.   0.   0.01 1.35 0.03 0.66 0.   0.   0.   0.05 0.   0.   0.   0.62]
 
     \end{Verbatim}
-\newpage
 
     \hypertarget{compute-statistics-for-the-choosen-month}{%
 \subsubsection{Compute Statistics for the choosen
