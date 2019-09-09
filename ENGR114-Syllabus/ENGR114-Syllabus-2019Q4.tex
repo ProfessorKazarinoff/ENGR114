@@ -1,0 +1,772 @@
+%% ENGR114_lab_assignment.tplx %%
+%
+% Built off of the article.tplx template %
+
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+    \documentclass[11pt]{article}
+
+    
+    
+    %% installed packages_rev2.tplx %%
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{framed,color}
+\definecolor{shadecolor}{rgb}{.8,.8,.8}
+\usepackage{titlesec}
+% no indent on any paragraphs, vertical spacing between paragraphs is set to 1em
+\usepackage[]{parskip}  % add [skip=1em] if the compiler will allow.
+
+% for MATLAB syntax highlighting
+\usepackage{listings}             % Include the listings-package
+\definecolor{mygray}{rgb}{0.8,0.8,0.8} % color values Red, Green, Blue
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+
+    
+    %% lab_title.tplx %% 
+ 
+\newcommand{\labtitle}{Syllabus 2019Q4} 
+    %% header_and_footer.tplx %%
+
+% Header and Footer
+\lhead{\textbf{\labtitle}}
+\rhead{ENGR114 Engineering Programming}
+\lfoot{Portland Community College, \the\year}
+\cfoot{}
+\rfoot{\thepage~of~\pageref{LastPage}}  % must compile twice for LastPage
+
+%lines below header and above footer
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Tabs
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.4\textwidth}\rlap{#1}}
+\newcommand{\tabA}[1]{\hspace{.2\textwidth}\rlap{#1}}
+    %% title_sec_formatting.tplx %%
+
+\titleformat{\section}[block]{\LARGE\bfseries\filcenter}{}{1em}{}
+
+\titleformat{\subsection}[hang]{\Large\bfseries}{}{1em}{}
+\titlespacing{\subsection}{-1.4em}{1.5em}{1em}
+
+\titleformat{\subsubsection}[hang]{\large\bfseries}{}{1em}{}
+\titlespacing{\subsubsection}{-1.1em}{1.5em}{0.8em}
+    
+        \title{Problem Solving 101 with Python}
+        \author{Peter D. Kazarinoff, PhD}
+        \date{}
+    
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    
+        \title{Problem Solving 101 with Python}
+        \author{Peter D. Kazarinoff, PhD}
+        \date{}
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    %% margins.tplx %%
+
+% margins
+\textwidth=7in
+\textheight=9.0in
+\topmargin=-0.5in
+\headheight=15pt
+\headsep=.5in
+\hoffset = -0.5in
+
+\pagestyle{fancy}
+
+    
+
+    \begin{document}
+    
+    
+    
+
+    
+    
+
+    
+    \hypertarget{engr114-syllabus---fall-2019}{%
+\section{ENGR114 Syllabus - Fall
+2019}\label{engr114-syllabus---fall-2019}}
+
+    \hypertarget{instructor-information}{%
+\subsection{Instructor Information}\label{instructor-information}}
+
+\begin{itemize}
+\tightlist
+\item
+  Instructor: Peter Kazarinoff
+\item
+  Instructor email: peter.kazarinoff@pcc.edu
+\item
+  Instructor phone: 971-722-8065 (email is the best way to get in touch)
+\item
+  Office Hours: Tues 9:00am-12:00pm and Fri 9:30am-11:30am
+\item
+  Office Location: SY ST200
+\end{itemize}
+
+    \hypertarget{course-information}{%
+\subsection{Course Information}\label{course-information}}
+
+\hypertarget{course-description}{%
+\subsubsection{Course Description}\label{course-description}}
+
+\begin{itemize}
+\tightlist
+\item
+  Credits: 4
+\item
+  Prerequisites: ENGR 101 or department-approved equivalent
+\item
+  Summary: Introduces computer programming terminology and techniques as
+  applied to specific engineering applications. Topics include
+  electrical circuit analysis, audio signal processing, image
+  processing, and interfacing with hardware such as microcontrollers and
+  analog-to-digital converters application. The course covers reading
+  and documenting code, running and testing code, and debugging and
+  correcting defects found in code.
+\end{itemize}
+
+\hypertarget{course-meeting-times-and-locations}{%
+\subsubsection{Course Meeting Times and
+Locations}\label{course-meeting-times-and-locations}}
+
+\begin{itemize}
+\tightlist
+\item
+  Lecture: CRN 43936-Mon 9am-11:50am in AM107, CRN 46130-Tues 1pm-3:50pm
+  in AM107
+\item
+  Lab: CRN 43936-Wed 9am-11:50am in AM107, CRN 46130-Thurs 1pm-3:50pm in
+  AM107
+\end{itemize}
+
+\hypertarget{course-materials}{%
+\subsection{Course Materials}\label{course-materials}}
+
+\hypertarget{textbook}{%
+\subsubsection{Textbook}\label{textbook}}
+
+\emph{Problem Solving with Python 3.7 Edition} by Peter D. Kazarinoff.
+Available on-line at
+\href{https://problemsolvingwithpython.com/}{problemsolvingwithpython.com}
+and hard copy on Amazon.com: \url{https://amazon.com/}
+
+\hypertarget{other-course-materials}{%
+\subsubsection{Other course materials}\label{other-course-materials}}
+
+\begin{itemize}
+\tightlist
+\item
+  USB thumb drive. 1GB size or larger will work fine. Bring to every
+  class.
+\item
+  Scientific Calculator
+\item
+  Access to the course programming environment, available online at
+  \url{https://engr114.org}. An @pcc.edu email address and password is
+  needed to login. Log into your @pcc.edu email account and then open
+  the course programming environment. You can also access use Google
+  CoLab \url{https://colab.research.google.com} with your @pcc.edu
+  account.
+\item
+  A laptop or home computer is not required for the course. If you use
+  your own computer, you can download the same programming environment
+  used on campus. The download is free and available at
+  \href{https://www.anaconda.com/distribution/}{https://anaconda.com/distribution}
+\item
+  The Engineering Department will provide you with an Arduino and
+  Circuit Playground Express microcontroller for you to use during labs
+  that require them. If you would like to purchase your own
+  microcontrollers to use outside of class, use the following links:
+  \href{https://www.sparkfun.com/products/13975}{sparkfun.com/products/13975}
+  \href{https://www.adafruit.com/product/3333}{adafruit.com/product/3333}
+\end{itemize}
+
+All PCC Computer Labs have Internet access. Remember to sign into your
+myPCC email account before logging in to the course programming
+environment. The course programming environment will work on all student
+laptops, desktops, and Chromebooks, tablets that have an Internet
+connection.
+
+    \hypertarget{course-components}{%
+\subsection{Course Components}\label{course-components}}
+
+    \hypertarget{homework}{%
+\subsubsection{Homework}\label{homework}}
+
+Homework is intended as a means of practicing the concepts presented in
+class. Timely submission of homework via Desire2Learn (D2L) is required.
+\textbf{No late homework is accepted in this course.} The D2L upload
+folder will close to submissions after the assignment deadline. With
+this in mind, your \textbf{lowest homework score of quarter will be
+dropped}. All homework assignments are weighted equally. Check D2L for
+assignments, homework format, and submission deadlines. Homework will be
+graded on format, completion, and running without any errors.
+
+    \hypertarget{exams}{%
+\subsubsection{Exams}\label{exams}}
+
+If a student is unable to take the exam when it is scheduled, it is the
+student's responsibility to notify the instructor \textbf{at least 1
+week prior to the date of an exam}. Make-up exams, if allowed, will be
+scheduled by the instructor after consulting with the student
+\textbf{prior} to the original date of the exam. I look forward to
+working with any students who have testing accommodations. It is the
+student's responsibility to set up a meeting \textbf{at least 1 week
+prior to the exam date} to review exam protocol as the testing center
+does not have laptops with the course programming environment installed.
+There will be two Exams in the course. One Midterm Exam and one Exam the
+last week of classes.
+
+\hypertarget{during-exams}{%
+\paragraph{During Exams:}\label{during-exams}}
+
+\begin{itemize}
+\tightlist
+\item
+  Exams will be taken during lecture or lab time in the classroom.
+\item
+  Exams will have two parts, a written portion, and a computer portion
+
+  \begin{itemize}
+  \tightlist
+  \item
+    During the written portion you cannot use a computer and computer
+    monitors must be off
+  \item
+    During the computer portion, you must use the computers in the
+    classroom. No student laptops allowed on exams.
+  \end{itemize}
+\item
+  Generally, a calculator and one page of notes are allowed on the
+  exams, both during the written and computer portions
+\item
+  You must complete each exam during the exam period. Uploads after the
+  deadline will receive zero credit.
+\end{itemize}
+
+    \hypertarget{labs}{%
+\subsubsection{Labs}\label{labs}}
+
+Typically, lecture is held early in the week and lab held later in the
+week. This is subject to change. Lab assignments are typically due at
+the end of the lab period, uploaded to D2L. \textbf{No late labs will be
+accepted}. \textbf{You must be present in lab to receive credit for the
+lab assignment}. Your \textbf{lowest lab score of the quarter will be
+dropped}. Lab assignments and grading are subject to change throughout
+the quarter. Check D2L for specific lab submission deadlines and
+requirements.
+
+    \hypertarget{in-class-assignments}{%
+\subsubsection{In-Class Assignments}\label{in-class-assignments}}
+
+Most lecture days include an in-class assignment that needs to be
+uploaded to D2L by the end of the class period. See D2L for specific
+in-class assignment details. \textbf{No late in-class assignments will
+be accepted}. \textbf{You must be present in lecture to receive credit
+for the in-class assignment}. Your \textbf{lowest in-class assignment
+score of the quarter will be dropped}. In-class assignments and grading
+are subject to change throughout the quarter.
+
+    \hypertarget{group-project}{%
+\subsubsection{Group Project}\label{group-project}}
+
+You will complete a group project throughout the quarter. Project
+delivery will be at the end of the quarter during finals week. Students
+must be present when their project is delivered to receive credit.
+During the quarter, there will be occasional project assignments to
+complete. See D2L for the project description and grading details.
+\textbf{No late projects will be accepted}.
+
+    \hypertarget{grading}{%
+\subsection{Grading}\label{grading}}
+
+\begin{itemize}
+\tightlist
+\item
+  Homework: 15\%
+\item
+  Exams: 20\%
+\item
+  Labs: 25\%
+\item
+  In-class: 5\%
+\item
+  Project: 15\%
+\end{itemize}
+
+Grades will be rounded to the nearest two significant figures (nearest
+whole percentage point) and converted to letter grades according to the
+table below. 84.4999999\% rounds to an 84\%, 84.50000\% rounds to 85\%.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Grade Percentage & Letter Grade\tabularnewline
+\midrule
+\endhead
+100 - 90 & A\tabularnewline
+80 - 89 & B\tabularnewline
+70 - 79 & C\tabularnewline
+65 - 69 & D\tabularnewline
+0 - 64 & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{class-rules-and-resources}{%
+\subsection{Class rules and resources}\label{class-rules-and-resources}}
+
+\hypertarget{class-rules}{%
+\subsubsection{Class Rules}\label{class-rules}}
+
+Be respectful and courteous to others. Failure to do so may result in
+lowering your course grade. Cheating will not be tolerated, and may
+result in failure of the entire course.
+
+\hypertarget{attendance-make-up-and-other-class-policies}{%
+\subsubsection{Attendance, Make-Up, and Other Class
+Policies}\label{attendance-make-up-and-other-class-policies}}
+
+Attendance at all labs and lectures is required. Attendance may be used
+in the grading process. Tardy students may be denied entry to class or
+docked in credit for in-class assignments. Poor attendance or repeated
+tardiness will have an adverse effect on a student's grade for the
+course.
+
+Students should check their @pcc.edu email at least three times a week
+to ensure receipt of announcements and essential information about the
+class.
+
+Students may only attend this course if registered. Students who are
+unable to attend must drop the course online or through the PCC
+Registration Office. To remove tuition charges, the course must be
+dropped by the student before the drop deadline posted on MyPCC.
+Students who never attend, or stop attending, without dropping may
+receive a W or a failing grade and will be required to pay for the
+course.
+
+The instructor reserves the right to modify course content and/or
+substitute assignments and learning activities in response to
+institutional, weather or class situations. To find out if the college
+is closed due to bad weather, please check the
+\href{http://www.pcc.edu/}{PCC Website}, call the PCC switchboard at
+503-244-6111, check the local radio and TV stations, or subscribe to
+\href{https://www.pcc.edu/about/announcements/closure-information.html}{FlashAlerts}.
+
+    \hypertarget{additional-content-areas-links-and-other-information}{%
+\subsubsection{Additional Content Areas, Links, and Other
+Information}\label{additional-content-areas-links-and-other-information}}
+
+(Note: See electronic copy for clickable links to these resources.)
+
+\begin{itemize}
+\item
+  \href{http://greenteapress.com/think-python}{Think Python} is a free
+  textbook in PDF form, or is available for purchase in print form from
+  Amazon.
+\item
+  \href{https://www.manning.com/books/get-programming}{Get Programming}
+  by Ana Bell is another good book. It is available at
+  \href{https://www.manning.com/}{Manning Publications}
+\item
+  \href{http://www.pcc.edu/resources/academic/standards-practices/AcademicStandardsandPractices-GradingGuidelines.html}{PCC
+  Grading Guidelines}
+\item
+  \href{http://www.pcc.edu/registration/dropping.html}{Add/drop/withdraw
+  deadlines for the term}
+\item
+  \href{http://www.pcc.edu/registration/academic-calendar.html}{PCC
+  Academic Calendar}
+\item
+  \href{https://www.pcc.edu/about/equity-inclusion/eeo-statement.html}{PCC
+  Nondiscrimination Statement}
+\end{itemize}
+
+\hypertarget{student-services}{%
+\paragraph{Student services:}\label{student-services}}
+
+\begin{itemize}
+\item
+  \href{https://www.pcc.edu/resources/veterans/}{Veteran Resources}
+\item
+  \href{http://www.pcc.edu/resources/tutoring/sylvania/student-success/}{Sylvania
+  Student Learning Center}
+\item
+  \href{https://www.pcc.edu/resources/women/sylvania/}{Sylvania Women's
+  Resource Center}
+\item
+  \href{https://www.pcc.edu/resources/qrc/sylvania/}{LGBTQ Resources and
+  Programming at Sylvania}
+\end{itemize}
+
+\href{http://www.pcc.edu/about/policy/student-rights/}{Student Rights
+and Responsibilities}, Includes information on children on PCC
+Properties, Academic Integrity Policy, Policy on Student Conduct.
+
+\hypertarget{additional-classroom-rules}{%
+\paragraph{Additional Classroom
+Rules}\label{additional-classroom-rules}}
+
+\begin{itemize}
+\item
+  Use of cell phones and other personal electronic devices, unless
+  otherwise stated, is not allowed during classes, labs, or exams.
+\item
+  The unauthorized recording (audio, video, or still pictures) of course
+  sessions, including recording other students, and distribution of said
+  recordings is not permitted.
+\item
+  The instructor reserves the right to modify course content and/or
+  substitute assignments and learning activities in response to
+  institutional, weather, or class situations.
+\end{itemize}
+
+    \hypertarget{students-with-disabilities}{%
+\subsubsection{Students with
+Disabilities}\label{students-with-disabilities}}
+
+Students working with the Office for Students with Disabilities that may
+require classroom or course adjustment or accommodation should make
+their needs known to the instructor as early as possible. The Office for
+Students with Disabilities may be contacted at:
+
+\url{https://pcc.edu/disability}
+
+Sylvania ST 229
+
+Portland, OR 97219
+
+Phone: 971-722-4341 (Voice)
+
+Email: disability.services@pcc.edu
+
+Students who have a documented disability and require accommodation
+should contact
+\href{http://www.pcc.edu/resources/disability}{Disabilities Services}
+and provide the Approved Academic Accommodations letter to the
+Instructor.
+
+    \hypertarget{title-iv}{%
+\subsubsection{Title IV}\label{title-iv}}
+
+Portland Community College is committed to creating and fostering a
+learning and working environment based on open communication and mutual
+respect. If you believe you have encountered sexual harassment, sexual
+misconduct, sexual assault, or discrimination based on race, color,
+religion, age, national origin, veteran status, sex, sexual orientation,
+gender identity, or disability please contact the Office of Equity and
+Inclusion at (971) 722-5840 or equity.inclusion@pcc.edu.
+
+    \hypertarget{academic-integrity}{%
+\subsubsection{Academic Integrity}\label{academic-integrity}}
+
+Students are required to complete this course in accordance with the
+\href{https://www.pcc.edu/about/policy/student-rights/documents/student-conduct.pdf}{PCC
+Student Rights and Responsibilities Handbook}. Dishonest activities such
+as cheating on exams and submitting or copying work done by others will
+result in disciplinary actions including, but not limited to, receiving
+a failing grade in the course.
+
+    \hypertarget{tentative-course-schedule}{%
+\subsection{Tentative Course Schedule}\label{tentative-course-schedule}}
+
+The course schedule below is subject to change. Check D2L for specific
+course deadlines.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Week & Lecture & Lab & Homework Due\tabularnewline
+\midrule
+\endhead
+Week 1 & The Python REPL & Lab 1: Circuit Python &\tabularnewline
+Week 2 & Data types and variables & Lab 2: Data Types & Homework
+1\tabularnewline
+Week 3 & Data structures, input and print & Lab 3: User Input & Homework
+2\tabularnewline
+Week 4 & Plotting & Lab 4: Plotting & Homework 3\tabularnewline
+Week 5 & Functions & Lab 5: Web API's & Homework 4\tabularnewline
+Week 6 & \textbf{Exam 1} & No Lab &\tabularnewline
+Week 7 & If, elif, else & Lab 6: Image Editing &\tabularnewline
+Week 8 & Loops & Lab 7: Taylor Series & Homework 5\tabularnewline
+Week 9 & External Hardware & Lab 8: External Hardware & Homework
+6\tabularnewline
+Week 10 & MicroPython & No Lab &\tabularnewline
+Week 11 & Review & \textbf{Exam 2} &\tabularnewline
+Finals Week & Final Project Delivery & &\tabularnewline
+\bottomrule
+\end{longtable}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
