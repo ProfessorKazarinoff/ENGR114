@@ -91,7 +91,7 @@
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab02 Sifting Weather Data} 
+\newcommand{\labtitle}{Lab03 Sifting Weather Data} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -352,17 +352,17 @@
     
 
     
-    \hypertarget{lab-02---sifting-weather-data}{%
-\section{Lab 02 - Sifting Weather
-Data}\label{lab-02---sifting-weather-data}}
+    \hypertarget{lab-03---sifting-weather-data}{%
+\section{Lab 03 - Sifting Weather
+Data}\label{lab-03---sifting-weather-data}}
 
     \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
 You can find the relevant \textbf{\emph{.xlsx-file}} posted along with
-these lab instructions on D2L. After completing the in-class example,
-save your script as a Jupyter notebook. Your work completing the
-in-class example does not need to be submitted for credit.
+these lab instructions on D2L. Complete the in-class example, save your
+script as a Jupyter notebook. Your work completing the in-class example
+does not need to be submitted for credit.
 
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
@@ -381,7 +381,7 @@ rainfall data.
 \subsubsection{Import External
 Packages}\label{import-external-packages}}
 
-The first step in the lab is to add a header to your Jupyter Notebook
+The first step in the lab is to add a header to your Jupyter notebook
 that includes the lab number and name, your name, the course, quarter
 and date.
 
@@ -414,9 +414,9 @@ documentation help section to see how to use the
 Note: the \textbf{\emph{.xlsx-file}} must be in your current file path,
 and quotes need to surround the file name.
 
-The Jupyter notebook code cell below shows the steps to import the
-\texttt{weather\_data.xlsx} file into a Pandas dataframe, and save the
-data in the variable \texttt{df}.
+The Jupyter notebook code cell below shows a line of Python code that
+imports the \texttt{weather\_data.xlsx} file into a Pandas dataframe,
+and save the data in the variable \texttt{df}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
@@ -426,10 +426,10 @@ data in the variable \texttt{df}.
     You can use Pandas methods to view the top of the dataframe with
 \texttt{df.head()} and \texttt{df.tail()}. When first imported, the
 dataframe \texttt{df} contains a couple values equal to \texttt{-99999}.
-Running the command \texttt{print(df.shape)} will indicate the dataframe
-\texttt{df} has dimensions of 12 rows x 31 columns. Also check the value
-in row 1 (index 0), column 3 (index 2) in the dataframe is \texttt{272}
-by running the \texttt{df.head()} method.
+Running the command \texttt{print(df.shape)} should indicate the
+dataframe \texttt{df} has dimensions of 12 rows x 31 columns. Also check
+the value in row 1 (index 0), column 3 (index 2) in the dataframe is
+\texttt{272} by running the \texttt{df.head()} method.
 
 The code cell below completes these steps.
 
@@ -459,19 +459,6 @@ The code cell below completes these steps.
         10    1  163    5   0    0    0   0   0   0    0  {\ldots}   0   2    2   10  255   
         11    0    0    0   0    0   45   0   0   0   15  {\ldots}  34   0    0    0    0   
         
-            26   27     28     29     30  
-        0    0    0      0     33     33  
-        1    0   62 -99999 -99999 -99999  
-        2   78    0      5      8      0  
-        3   35   13     86      0 -99999  
-        4    2    0      0      0      0  
-        5   35   14     14      8 -99999  
-        6    0    5      0      0      0  
-        7    0    0      0      0      0  
-        8    6  138     58     10 -99999  
-        9    0    0      0      0      1  
-        10   2    0      0      0 -99999  
-        11   0    0      0      0      0  
         
         [12 rows x 31 columns]
 \end{Verbatim}
@@ -516,7 +503,7 @@ array by \texttt{0.01} so that the array contains rain fall in inches
 
 The code cell below shows how to convert the weather data from
 hundredths of an inch to inches. When the multiplication symbol
-\texttt{*} is used with a NumPy array, the multiplication is
+\texttt{*} is used on a NumPy array, the multiplication is
 \emph{element-wise}. This means each value in the array is multiplied by
 the scalar \texttt{0.01}.
 
@@ -538,18 +525,18 @@ statistics. Later, you will change \texttt{m} to other values.
 Use the value in \texttt{m} to extract that month's data from your
 \texttt{wd} array. Store these values in an array called \texttt{md}
 (for month data). Since February has 28 days, you will see positive
-numbers, zeros and \texttt{NaN} present in the array.
+numbers, zeros and \texttt{-9.9999e+02} present in the array.
 
 For example, according to our data, the rainfall for the first 3 days in
 February are \texttt{0.61} inches, \texttt{1.03} inches, and \texttt{0}
 inches.
 
-The Jupyter notebook cell which shows this operation is below. Note how
-indexing is used to pull out all of the values from one row. The general
-syntax for indexing a NumPy array is \texttt{array{[}row,col{]}}. If we
-use \texttt{wd{[}1,:{]}}, this means \texttt{row=1}, \texttt{col=all}
-(row one, all columns). Note the values \texttt{-9.9999} present in the
-array \texttt{md}.
+The Jupyter notebook code cell below demonstrates this operation. Note
+how indexing is used to pull out all of the values from one row. The
+general syntax for indexing a NumPy array is
+\texttt{array{[}row,col{]}}. If we use \texttt{wd{[}1,:{]}}, this means
+\texttt{row=1}, \texttt{col=all} (row one, all columns). Note the values
+\texttt{-9.9999} present in the array \texttt{md}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}7}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{1}
@@ -572,7 +559,7 @@ array \texttt{md}.
 \texttt{md} array. If we find the average of the values in \texttt{md}
 now, which corresponds to the average rainfall in February, the value
 that's returned doesn't make sense. There is no way the rain fall could
-be negative.
+be negative!
 
 The code cell below shows how to find the average of the values in the
 array \texttt{md}. Note that \texttt{-9.9999} values are present in the
@@ -614,11 +601,11 @@ location as the \texttt{-9.9999} values in \texttt{md}.
                 True, False, False, False])
 \end{Verbatim}
             
-    We then use the boolean mask \texttt{md\textgreater{}-1} to index the
+    Next, use the boolean mask \texttt{md\textgreater{}-1} to index the
 array \texttt{md}. All the locations in \texttt{wd} where the boolean
 mask is set to \texttt{True} are pulled out. All the locations in
 \texttt{wd} where the boolean mask is \texttt{False} do not get pulled
-out. We put the results of the indexing operation back into the variable
+out. Put the results of the indexing operation back into the variable
 \texttt{wd} to be used later.
 
 The code cell below creates the boolean mask, indexes out values from
@@ -680,12 +667,13 @@ attribute.
 they are correct.
 
 Then run your script for the January data (\texttt{m=0}) and check the
-results against manual calculations for that month.
+results against manual calculations for January.
 
 You may wish to test your script against other month's data. When you
 are convinced your results and variable names are correct, set
 \texttt{m=1} and restart the Jupyter notebook Kernel and clear all
-output. Run each cell one last time and ensure the script is error free.
+output. Run each cell one last time and ensure the script runs error
+free.
 
 For your own records, save your \texttt{lab2.ipynb} file and your
 \texttt{weather\_data.xlsx} file to the same directory. You do not need
@@ -695,8 +683,9 @@ has their own copy to test your script.
     \hypertarget{deliverable}{%
 \subsection{Deliverable}\label{deliverable}}
 
-One .ipynb-file with all cells run. The .ipynb-file should run without
-errors. Uploaded the .ipynb file to D2L by the end of the lab period.
+One \texttt{.ipynb}-file with all cells run. The \texttt{.ipynb}-file
+should run without errors. Uploaded the \texttt{.ipynb}-file to D2L by
+the end of the lab period.
 
     \hypertarget{by-d.-kruger-adapted-by-p.-kazarinoff-portland-community-college-2019}{%
 \paragraph{\texorpdfstring{\emph{By D. Kruger, adapted by P. Kazarinoff,
