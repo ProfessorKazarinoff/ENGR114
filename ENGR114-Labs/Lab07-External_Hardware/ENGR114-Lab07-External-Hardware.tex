@@ -1,16 +1,375 @@
-%% ENGR114 Lab 8 External Hardware
+%% ENGR114_lab_assignment.tplx %%
+%
+% Built off of the article.tplx template %
 
-\input{lab8/preamble.tex}
+
+% Default to the notebook output style
+
     
+
+
+% Inherit from the specified cell style.
+
+    \documentclass[11pt]{article}
+
+
+    
+    %% installed packages_rev2.tplx %%
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{framed,color}
+\definecolor{shadecolor}{rgb}{.8,.8,.8}
+\usepackage{titlesec}
+% no indent on any paragraphs, vertical spacing between paragraphs is set to 1em
+\usepackage[]{parskip}  % add [skip=1em] if the compiler will allow.
+
+% for MATLAB syntax highlighting
+\usepackage{listings}             % Include the listings-package
+\definecolor{mygray}{rgb}{0.8,0.8,0.8} % color values Red, Green, Blue
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+    
+
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+
+    
+    %% lab_title.tplx %% 
+ 
+\newcommand{\labtitle}{Lab07 External Hardware} 
+    %% header_and_footer.tplx %%
+
+% Header and Footer
+\lhead{\textbf{\labtitle}}
+\rhead{ENGR114 Engineering Programming}
+\lfoot{Portland Community College, \the\year}
+\cfoot{}
+\rfoot{\thepage~of~\pageref{LastPage}}  % must compile twice for LastPage
+
+%lines below header and above footer
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Tabs
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.4\textwidth}\rlap{#1}}
+\newcommand{\tabA}[1]{\hspace{.2\textwidth}\rlap{#1}}
+    %% title_sec_formatting.tplx %%
+
+\titleformat{\section}[block]{\LARGE\bfseries\filcenter}{}{1em}{}
+
+\titleformat{\subsection}[hang]{\Large\bfseries}{}{1em}{}
+\titlespacing{\subsection}{-1.4em}{1.5em}{1em}
+
+\titleformat{\subsubsection}[hang]{\large\bfseries}{}{1em}{}
+\titlespacing{\subsubsection}{-1.1em}{1.5em}{0.8em}
+    
+        \title{Problem Solving 101 with Python}
+        \author{Peter D. Kazarinoff, PhD}
+        \date{}
+    
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    
+        \title{Problem Solving 101 with Python}
+        \author{Peter D. Kazarinoff, PhD}
+        \date{}
+    
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    %% margins.tplx %%
+
+% margins
+\textwidth=7in
+\textheight=9.0in
+\topmargin=-0.5in
+\headheight=15pt
+\headsep=.5in
+\hoffset = -0.5in
+
+\pagestyle{fancy}
+
+    
+
 \begin{document}
+    
+    
 
-\hypertarget{lab-08---external-hardware}{%
-\section{Lab 08 - External Hardware}\label{lab-08---external-hardware}}
+    
+    
 
-In this lab, you will use Python to communicate to a piece of external
+    
+    \hypertarget{lab-07---external-hardware}{%
+\section{Lab 07 - External Hardware}\label{lab-07---external-hardware}}
+
+    In this lab, you will use Python to communicate to a piece of external
 hardware.
 
-\hypertarget{prelab}{%
+    \hypertarget{prelab}{%
 \subsection{Prelab}\label{prelab}}
 
 Before starting the lab, familiarize yourself with what an Arduino is
@@ -19,14 +378,14 @@ you Google ``Arduino project''. Download the Arduino IDE using the
 following link:
 
 \begin{quote}
-\href{https://www.arduino.cc/en/Main/Software}{https://www.arduino.cc/en/Main/Software}
+\url{https://www.arduino.cc/en/Main/Software}
 \end{quote}
 
 Be sure to select: \textbf{{[}Windows ZIP file for non admin install{]}}
 as new software can not be installed on lab computers without
 administrator privileges.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/arduino_download_page.png}
 \caption{Arduino IDE Download Page}
@@ -46,22 +405,21 @@ The first part of this lab will follow a tutorial from the Sparkfun
 Inventor's Kit:
 
 \begin{quote}
-\href{https://www.sparkfun.com/products/retired/12060}{https://www.sparkfun.com/products/retired/12060}
+\url{https://www.sparkfun.com/products/retired/12060}
 \end{quote}
 
 Click on the \textbf{{[}Documents{]}} link on the product page to review
 the guide.
 
-\newpage
-
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
 For this group lab assignment, your group will use Python to interact
-with an Arduino to dynamically turn on and off an LED, and then your
-group will use Python to collect and plot the sensor data. Your group
-will construct two Python scripts and use two Arduino scripts to
-complete these tasks. At the end of the lab, you will be able to use
+with an Arduino to dynamically turn on and off an LED, then your group
+will use Python to collect and plot the sensor data.
+
+Your group will construct two Python scripts and use two Arduino scripts
+to complete these tasks. At the end of the lab, you will be able to use
 Python to interact with external hardware.
 
     An outline of the steps to complete the lab is below:
@@ -103,17 +461,15 @@ Arduino}\label{part-2-measure-sensor-output-with-python-and-an-arduino}}
   Twist the little blue potentiometer to turn the LED connected to the
   Arduino on and off
 \item
-  Use the Arduino Serial Monitor and Arduino Serial Plotter to see the
-  potentiometer reading
+  Use the Arduino Serial Monitor and Arduino Serial Plotter to visualize
+  the potentiometer reading
 \item
-  Build a Python script and to record the potentiometer level and draw a
+  Build a Python script to record the potentiometer reading and draw a
   plot
 \end{enumerate}
 
     You will complete this lab in groups. Below are details for each of the
 steps outlined above.
-
-\newpage
 
 \hypertarget{part-1.-turn-an-led-on-and-off-with-python-and-an-arduino}{%
 \subsubsection{Part 1. Turn an LED on and off with Python and an
@@ -126,12 +482,12 @@ IDE}\label{a-download-the-arduino-ide}}
 Download the Arduino IDE using the following link:
 
 \begin{quote}
-\href{https://www.arduino.cc/en/Main/Software}{https://www.arduino.cc/en/Main/Software}
+\url{https://www.arduino.cc/en/Main/Software}
 \end{quote}
 
 Scroll down the page to the \textbf{{[}Download the Arduino IDE{]}}
-section. Be sure to select: \textbf{{[}Windows ZIP file for non admin install{]}} 
-as new software can not be installed on lab computers
+section. Be sure to select: \textbf{{[}Windows ZIP file for non admin
+install{]}} as new software can not be installed on lab computers
 without administrator privileges. You can select \textbf{{[}JUST
 DOWNLOAD{]}} from the donation screen. Extract the downloaded .zip
 folder to your thumb drive or the desktop.
@@ -154,7 +510,7 @@ Note that LED's have two different length ``legs''. The short leg
 connects to ground (thru a resistor), the long leg connects to Pin 13 on
 the Arduino.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Arduino_LED_fritzing.png}
 \caption{Arduino with LED Frizting}
@@ -171,7 +527,7 @@ open the Arduino IDE program. In the Arduino IDE, open the
 --\textgreater{} {[}Examples{]} --\textgreater{} {[}Basics{]}
 --\textgreater{} {[}01.Blink{]}.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/blink_in_examples_menu.png}
 \caption{blink.ino in arduino ide}
@@ -183,13 +539,13 @@ a USB port which is part of the computer. In the Arduino IDE Window that
 contains the \textbf{\emph{Blink.ino}} sketch, click the check mark to
 Verify, then click the arrow to Upload.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Check_to_Verify.png}
 \caption{Check to Verify}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Arrow_to_Upload.png}
 \caption{Arrow to Upload}
@@ -225,22 +581,22 @@ Open the Arduino \textbf{\emph{PhysicalPixel.ino}} sketch by going to:
 {[}File{]} --\textgreater{} {[}Examples{]} --\textgreater{}
 {[}04.Communication{]} --\textgreater{} {[}PhysicalPixel{]}.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/examples_com_physicalpixel.png}
-\caption{physicalpixel.ino in the Arduino IDE}
+\caption{physicalpixel.ino in arduino ide}
 \end{figure}
 
 Once again, In the Arduino IDE Window that contains the PhysicalPixel
 sketch, click the check mark to Verify, then click the arrow to Upload.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Check_to_Verify.png}
 \caption{Check to Verify}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Arrow_to_Upload.png}
 \caption{Arrow to Upload}
@@ -267,7 +623,7 @@ on and off, make sure that the Port is set correctly in {[}Tools{]}
 --\textgreater{} {[}Port{]} and make sure that the Serial Monitor is set
 to 9600 baud.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/serial_monitor_H.png}
 \caption{Send H using the Arduino Serial Monitor}
@@ -282,8 +638,8 @@ able to talk to the Arduino.
 \paragraph{(f) Use the Python REPL to turn the Arduino LED on and
 off}\label{f-use-the-python-repl-to-turn-the-arduino-led-on-and-off}}
 
-Next you are going to use Python to turn the Arduino LED on and off. You
-will accomplish this with a Python package called \textbf{PySerial}.
+Next, you are going to use Python to turn the Arduino LED on and off.
+You will accomplish this with a Python package called \textbf{PySerial}.
 \textbf{PySerial}
 (\href{https://pythonhosted.org/pyserial/}{pythonhosted.org/pyserial})
 is a Python package used for serial communication. Before you can use
@@ -301,7 +657,7 @@ conda install pyserial
 
 Then type \texttt{y} for yes when prompted.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/anaconda_prompt_install_pyserial.png}
 \caption{Anaconda Prompt showing the command to install PySerial}
@@ -310,24 +666,25 @@ Then type \texttt{y} for yes when prompted.
 At the Anaconda Prompt, type \texttt{python} to enter the Python REPL
 (the Python Prompt).
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/anaconda_prompt_python_REPL.png}
-\caption{The Python REPL shown in the Anaconda Prompt}
+\caption{The Python REPL shown in the Anaconda Prompt window}
 \end{figure}
 
 At the Python REPL, type the following commands. If the the command is
 preceded by a REPL prompt
 \texttt{\textgreater{}\textgreater{}\textgreater{}} type the command
-into the REPL. If the command does not start with a REPL prompt, this
+into the REPL. If the command does not start with a
+\texttt{\textgreater{}\textgreater{}\textgreater{}} REPL prompt, the
 line represents expected output.
 
 \begin{verbatim}
 >>> import serial
 >>> import time
 
->>> ser = serial.Serial('COM4', 9600)  # open serial port
->>> time.sleep(2)                      # wait 2 seconds for connection
+>>> ser = serial.Serial('COM4',9600)  # open serial port
+>>> time.sleep(2)                     # wait 2 seconds for connection
 >>> ser.name
 'COM4'
 
@@ -347,21 +704,15 @@ line represents expected output.
 >>> exit()
 \end{verbatim}
 
-If you have trouble, check the following:
-\begin{itemize}
-    \item Make sure the Arduino Serial
+If you have trouble, check the following: * Make sure the Arduino Serial
 Monitor is closed. If the Serial Monitor is left open, Python will not
-be able to talk to the Arduino. 
-\item Make sure the
+be able to talk to the Arduino. * Make sure the
 \texttt{\textquotesingle{}COM\textquotesingle{}} Port is set correctly.
 Open the \textbf{Windows Device Manager} and search under {[}Ports (COM
-\& LPT){]} 
-\item Make sure the
+\& LPT){]} * Make sure the
 \texttt{\textgreater{}\textgreater{}\textgreater{}\ ser.close()} command
-was called if the serial line was opened before
-\item Unplug and re-plug the
+was called if the serial line was opened before * Unplug and re-plug the
 red USB cable connected to the Arduino
-\end{itemize}
 
     \hypertarget{f-build-a-python-script-to-turn-the-arduino-led-on-and-off}{%
 \paragraph{(f) Build a Python script to turn the Arduino LED on and
@@ -381,10 +732,10 @@ LED on and off with the Serial Monitor and the Python REPL. To do this,
 you have to program Python to send the characters \texttt{L} and
 \texttt{H} over the Serial line to the Arduino.
 
-At the start of your Python script, include a comments (\texttt{\#})
+    At the start of your Python script include a comments (\texttt{\#})
 section the contains a line with the program title, and separate lines
 that contain your name, the lab number and lab name, course quarter and
-date. Below the heading section, start your Python code.
+date. Below the heading, start your Python script.
 
 The first code section of your script needs to include imports for the
 \textbf{PySerial} package and the \textbf{time} module. Include the
@@ -413,10 +764,10 @@ ser.close()
 \end{verbatim}
 
 Before you run the open serial port section of code, put in place the
-line of code that closes the serial port. If the serial port is not closed,
+line of code to close the serial port. If the serial port is not closed,
 you will not be able to use the serial port the next time your script
 runs. When you have problems connecting to the Arduino with Python,
-often it is because the serial line was not closed.
+often it is because the serial port was not closed.
 
 Insert one of the sections of code below between the opening and closing
 of the serial port:
@@ -439,7 +790,7 @@ ser.write(b'L')
 time.sleep(1)
 \end{verbatim}
 
-Run the entire Python script to ensure there are no errors and you can open and
+Run the entire script to ensure there are no errors and you can open and
 close the serial port. A common error is the serial port
 \texttt{\textquotesingle{}COM\#\textquotesingle{}} is not set correctly.
 Make sure you can the LED turns on and off by running the two sections
@@ -472,10 +823,11 @@ Python REPL.
 Once Python successfully blinks the Arduino LED, use your Python coding
 skills to ask the user for input and turn on or off the Arduino's LED
 based on user input. Complete this task with the \texttt{input()}
-function running in a \textit{while loop}. Within the while loop, add an \textit{if
-statement} that allows the program to break out of the loop (remember the
-keyword \texttt{break}) and go to the \texttt{ser.close()} section. Remember, the
-serial port must be closed for Python to use the serial line again.
+function running in a \emph{while loop}. Within the while loop, add an
+\emph{if statement} that allows the program to break out of the loop
+(remember the keyword \texttt{break}) and go to the \texttt{ser.close()}
+section. The serial port must be closed for Python to use the serial
+line again.
 
 Below is an example of an if/break statement:
 
@@ -520,18 +872,16 @@ kit online guide:
 \href{https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1b-potentiometer}{https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1b-potentiometer}
 \end{quote}
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/redboard_pot_led_fritzing.png}
 \caption{Arduino Potentiometer Fritzing Schematic}
 \end{figure}
 
-\newpage
-
-    \hypertarget{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino}{%
+    \hypertarget{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino-ide}{%
 \paragraph{\texorpdfstring{(b) Copy and load the
-\textbf{\emph{potentiometer.ino}} sketch onto the
-Arduino}{(b) Copy and load the potentiometer.ino sketch onto the Arduino}}\label{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino}}
+\textbf{\emph{potentiometer.ino}} sketch onto the Arduino
+IDE}{(b) Copy and load the potentiometer.ino sketch onto the Arduino IDE}}\label{b-copy-and-load-the-potentiometer.ino-sketch-onto-the-arduino-ide}}
 
 Open a new sketch in the Arduino IDE by going to {[}File{]}
 --\textgreater{} {[}New{]}. Copy the code below into the new sketch and
@@ -593,7 +943,7 @@ reading}\label{d-use-the-arduino-serial-monitor-and-serial-plotter-to-see-the-po
 Open the Arduino Serial Monitor in the Arduino IDE by going to
 {[}Tools{]} --\textgreater{} {[}Serial Monitor{]}.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Tools_SerialMonitor.png}
 \caption{Arduino Tools --\textgreater{} Serial Monitor}
@@ -604,16 +954,16 @@ potentiometer \textbf{\emph{potentiometer.ino}} sketch is working
 properly. Twist the little blue potentiometer and watch the numbers
 scrolling down the Serial Monitor change.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/serial_monitor_output.png}
 \caption{Arduino Serial Monitor}
 \end{figure}
 
-Close the Arduino Serial Monitor and open the Arduino Serial
+Next, close the Arduino Serial Monitor and open the Arduino Serial
 Plotter by going to {[}Tools{]} --\textgreater{} {[}Serial Plotter{]}.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/Tools_SerialPlotter.png}
 \caption{Arduino Tools --\textgreater{} Serial Plotter}
@@ -630,7 +980,7 @@ Arduino Serial Monitor and Serial Plotter can not be open at the same
 time, and both need to be closed before Python can communicate with the
 Arduino.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/serial_plotter_output.png}
 \caption{Arduino Serial Plotter}
@@ -643,10 +993,10 @@ data}\label{e-use-the-python-repl-to-read-the-potentiometer-data}}
 Open the \textbf{Anaconda Prompt}, type \texttt{python} to enter the
 Python REPL.
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/anaconda_prompt_python_REPL.png}
-\caption{The Python REPL shown in the Anaconda Prompt}
+\caption{The Python REPL shown in the Anaconda Prompt window}
 \end{figure}
 
 At the Python REPL, type the following commands. If the command is
@@ -690,7 +1040,7 @@ data types. The data came in as
 The data was then converted to a Python string
 \texttt{\textless{}class\ \textquotesingle{}str\textquotesingle{}\textgreater{}}.
 Then the \texttt{\textbackslash{}r\textbackslash{}n} characters were
-removed, and finally the string was converted to a float
+removed from the string, and finally the string was converted to a float
 \texttt{\textless{}class\ \textquotesingle{}float\textquotesingle{}\textgreater{}}.
 
     \hypertarget{f-build-a-python-script-and-to-record-the-potentiometer-level-and-draw-a-plot}{%
@@ -709,14 +1059,14 @@ After you can successfully:
   see the values changing in the Arduino Serial Monitor when the little
   blue potentiometer is turned
 \item
-  see the plot line moving up and down in the Arduino Serial Plotter when the
+  see the plot line moving up and down in the Serial Plotter when the
   little blue potentiometer is turned
 \item
   read a data from the serial line and convert the data to a float
 \end{itemize}
 
-The next step is to build a Python script that reads the
-potentiometer data and builds a plot (like the plot you see in the
+The next step is to build a Python script that reads and plots the
+potentiometer value and builds a plot (like the plot you see in the
 Arduino Serial Plotter).
 
 To read the potentiometer value with Python, create a new script called
@@ -753,7 +1103,7 @@ for i in range(50):
     flt = float(string)            # convert the string to a float
     print(flt)
     data.append(flt)               # add the float to the end of the data list
-    time.sleep(0.1)                # wait (sleep) 0.2 seconds before the next reading
+    time.sleep(0.1)                # wait (sleep) 0.1 seconds before the next reading
 
 ser.close()
 
@@ -775,10 +1125,10 @@ When the Python script runs, it should function in the following way:
 Enter the number of seconds to record data (0 - 60) : 10
 \end{verbatim}
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics{images/potentiometer_reading.png}
-\caption{Example Matplotlib plot of potentiometer data}
+\caption{matplotlib plot of potentiometer data}
 \end{figure}
 
     \hypertarget{going-further}{%
@@ -789,7 +1139,7 @@ your Python script:
 
 \begin{itemize}
 \item
-  Display the high and low potentiometer readings
+  Display the high and low potentiometer readings on the plot
 \item
   Connect a photocell to the Arduino and plot photocell readings with
   Python
@@ -804,13 +1154,14 @@ your Python script:
 Make sure your group's Python and Arduino code are well commented and
 sectioned. Ensure the variable names are descriptive and there is enough
 documentation for another group of students to reuse the code without
-much trouble. Each student's submission for the lab should be a pair of the
+much trouble. Each student's submission for the lab should be two of the
 following files (you do not need to submit all the
 \textbf{\emph{.ipynb}} and \textbf{\emph{.ino}} files used in the lab,
 just submit the files you were primarily responsible for).
 
 Each student needs to upload one Python file (one .ipynb-file) and one
-Arduino file (one .ino-file):
+Arduino file (one .ino-file). Upload your files to the D2L Lab 7 Uploads
+folder.
 
 \textbf{\emph{LED.ipynb}} and \textbf{\emph{PhysicalPixel.ino}}
 
@@ -819,10 +1170,14 @@ or
 \textbf{\emph{potentiometer.ipynb}} and
 \textbf{\emph{potentiometer.ino}}
 
-Upload your files to the D2L Lab 8 Uploads
-folder.
+    \hypertarget{by-p.-kazarinoff-portland-community-college-2018-2019}{%
+\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
+College,
+2018-2019}}{By P. Kazarinoff, Portland Community College, 2018-2019}}\label{by-p.-kazarinoff-portland-community-college-2018-2019}}
+
+
     % Add a bibliography block to the postdoc
     
     
     
-    \end{document}
+\end{document}

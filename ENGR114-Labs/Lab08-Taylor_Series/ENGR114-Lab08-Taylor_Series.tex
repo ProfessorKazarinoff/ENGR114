@@ -10,13 +10,9 @@
 
 % Inherit from the specified cell style.
 
-
-
-
-    
     \documentclass[11pt]{article}
 
-    
+
     
     %% installed packages_rev2.tplx %%
 
@@ -34,31 +30,26 @@
 \definecolor{mygreen}{RGB}{28,172,0}
 \definecolor{mylilas}{RGB}{170,55,241}
     
-    \usepackage[T1]{fontenc}
-    % Nicer default font (+ math font) than Computer Modern for most use cases
-    \usepackage{mathpazo}
+
+ \usepackage[T1]{fontenc}
+ \usepackage{mathpazo}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
     \usepackage{graphicx}
-    % We will generate all images so they have a width \maxwidth. This means
-    % that they will get their normal width if they fit onto the page, but
-    % are scaled down if they would overflow the margins.
-    \makeatletter
-    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
-    \else\Gin@nat@width\fi}
-    \makeatother
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
     \let\Oldincludegraphics\includegraphics
-    % Set max figure width to be 80% of text width, for now hardcoded.
-    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
     % Ensure that by default, figures have no caption (until we provide a
     % proper Figure object with a Caption API and a way to capture that
     % in the conversion process - todo).
     \usepackage{caption}
-    \DeclareCaptionLabelFormat{nolabel}{}
-    \captionsetup{labelformat=nolabel}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
-    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
     \usepackage{xcolor} % Allow colors to be defined
     \usepackage{enumerate} % Needed for markdown enumerations to work
     \usepackage{geometry} % Used to adjust the document margins
@@ -72,26 +63,37 @@
     \usepackage{upquote} % Upright quotes for verbatim code
     \usepackage{eurosym} % defines \euro
     \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
-    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
     \usepackage{fancyvrb} % verbatim replacement that allows latex
     \usepackage{grffile} % extends the file name processing of package graphics 
-                         % to support a larger range 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
     % The hyperref package gives us a pdf with properly built
     % internal navigation ('pdf bookmarks' for the table of contents,
     % internal cross-reference links, web links for URLs, etc.)
     \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
     \usepackage{longtable} % longtable support required by pandoc >1.10
     \usepackage{booktabs}  % table support for pandoc > 1.12.2
     \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
     
 
 
     
     %% lab_title.tplx %% 
  
-\newcommand{\labtitle}{Lab07 Taylor Series} 
+\newcommand{\labtitle}{Lab08 Taylor Series} 
     %% header_and_footer.tplx %%
 
 % Header and Footer
@@ -147,6 +149,8 @@
     \definecolor{ansi-cyan-intense}{HTML}{258F8F}
     \definecolor{ansi-white}{HTML}{C5C1B4}
     \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
 
     % commands and environments needed by pandoc snippets
     % extracted from the output of `pandoc -s`
@@ -193,14 +197,21 @@
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
     \def\br{\hspace*{\fill} \\* }
-    % Math Jax compatability definitions
+    % Math Jax compatibility definitions
     \def\gt{>}
     \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
+    % Document title
     
         \title{Problem Solving 101 with Python}
         \author{Peter D. Kazarinoff, PhD}
         \date{}
+    
+    
     
     
     
@@ -343,18 +354,16 @@
 
     
 
-    \begin{document}
-    
-    
-    
-
+\begin{document}
     
     
 
     
-    \hypertarget{engr114---lab-07---taylor-series}{%
-\section{ENGR114 - Lab 07 - Taylor
-Series}\label{engr114---lab-07---taylor-series}}
+    
+
+    
+    \hypertarget{lab-08---taylor-series}{%
+\section{Lab 08 - Taylor Series}\label{lab-08---taylor-series}}
 
 In this lab, you will create a Python function that calculates the
 \emph{Taylor Series} of two mathematical functions. A Taylor Series is
@@ -376,7 +385,7 @@ flow chart symbols: oval, rectangle, diamond and parallelogram.
     \hypertarget{lab}{%
 \subsection{Lab}\label{lab}}
 
-Create a new Python script called \textbf{taylor\_series.ipynb} which will
+Create a new Python script called \textbf{taylor\_series.py} which will
 contain a user-defined function called \texttt{taylor()}. The
 \texttt{taylor()} function will have the function name, inputs, outputs
 and doc string information as shown.
@@ -385,18 +394,23 @@ and doc string information as shown.
 def taylor(func, x, terms):
 """
 Performs the Taylor series expansion for either the sine of x or for Euler's number raised to x. 
-The taylor() function returns the taylor series approximation of sin(x) or e^(x) with an optional number of terms.
+The taylor() function returns the taylor series approximation of sin(x) or e^(x)
+with an optional number of terms.
  
  Input:
-     - func: A string describing which function to to calculate the Taylor 
-           series expansion of.  ('sin' for sine(x), 'exp' for e^x)
-     - x: Input argument that the function will operate on.  Must be a float or an integer between -50 and 50
-     - terms: number of terms in the Taylor Series. Must be an int greater than zero up to and including 100.
-              Defaults to 10. Has to be an integer between 1 and 50.
+     - func: A string describing which function to to calculate the Taylor  series expansion of.
+               'sin' for sine(x), 'exp' for e^x)
+     - x: Input argument that the function will operate on.
+           Must be a float or an integer between -50 and 50
+     - terms: number of terms in the Taylor Series.
+                 Must be an int greater than zero up to and including 100.
+                 Defaults to 10. Has to be an integer between 1 and 50.
  
  Output:
-     - series_sum: equals the sum of all of the terms in the Taylor Series up to the number of terms specified.
-       Will be a float.
+     - series_sum: equals the sum of all of the terms in the Taylor Series
+                         up to the number of terms specified.
+                         Will be a float.
+
 """
 \end{verbatim}
 
@@ -449,7 +463,7 @@ Below are a couple of tips to help you complete the lab:
 \begin{itemize}
 \tightlist
 \item
-  Start working with your .ipynb-file as a regular script (not a function)
+  Start working with your .py-file as a regular script (not a function)
   with hard coded input values. This way you can easily run and re-run
   it for testing.
 \item
@@ -465,7 +479,7 @@ Below are a couple of tips to help you complete the lab:
   validation, before changing it into a function.
 \item
   Now call your function \texttt{taylor()} from within the
-  \textbf{taylor\_series.ipynb} file . It is easier to change values and
+  \textbf{taylor\_series.py} file . It is easier to change values and
   re-run this way, versus importing the function and calling
   \texttt{\textgreater{}\textgreater{}\textgreater{}taylor(\textquotesingle{}sin\textquotesingle{},4,10)}
   from the Python REPL.
@@ -475,19 +489,23 @@ Below are a couple of tips to help you complete the lab:
   \texttt{math.sin()}.
 \end{itemize}
 
-    \hypertarget{deliverables}{%
-\subsection{Deliverables}\label{deliverables}}
+    \hypertarget{deliverable}{%
+\subsection{Deliverable}\label{deliverable}}
 
 Once you are satisfied that your file meets all the requirements,
-suppress all screen output, save your \textbf{taylor\_series.ipynb} file, and submit
+suppress all screen output, save your \textbf{lab8.py} file, and submit
 it to appropriate D2L folder.
 
-    \hypertarget{by-p.-kazarinoff-portland-community-college-2019}{%
-\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community College, 2019}}{By P. Kazarinoff, Portland Community College, 2019}}\label{by-p.-kazarinoff-portland-community-college-2019}}
+    \hypertarget{by-p.-kazarinoff-portland-community-college-2018}{%
+\paragraph{\texorpdfstring{\emph{By P. Kazarinoff, Portland Community
+College,
+2018}}{By P. Kazarinoff, Portland Community College, 2018}}\label{by-p.-kazarinoff-portland-community-college-2018}}
+
+
 
 
     % Add a bibliography block to the postdoc
     
     
     
-    \end{document}
+\end{document}
