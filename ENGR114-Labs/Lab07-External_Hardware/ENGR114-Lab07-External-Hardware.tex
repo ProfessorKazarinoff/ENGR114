@@ -31,8 +31,8 @@
 \definecolor{mylilas}{RGB}{170,55,241}
     
 
-\usepackage[T1]{fontenc}
-\usepackage{mathpazo}
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
 
 
     % Basic figure setup, for now with no caption control since it's done
@@ -431,7 +431,7 @@ Arduino}\label{part-1-turn-an-led-on-and-off-with-python-and-an-arduino}}
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
 \item
-  Download the Arduino IDE
+  Create a virtual environment and install PySerial
 \item
   Wire an LED and resistor to the Arduino
 \item
@@ -475,22 +475,73 @@ steps outlined above.
 \subsubsection{Part 1. Turn an LED on and off with Python and an
 Arduino}\label{part-1.-turn-an-led-on-and-off-with-python-and-an-arduino}}
 
-    \hypertarget{a-download-the-arduino-ide}{%
-\paragraph{(a) Download the Arduino
-IDE}\label{a-download-the-arduino-ide}}
+    \hypertarget{a-create-a-virtual-environment-and-install-pyserial}{%
+\paragraph{(a) Create a virtual environment and install
+PySerial}\label{a-create-a-virtual-environment-and-install-pyserial}}
 
-Download the Arduino IDE using the following link:
+A virtual environment is an installation of Python and external packages
+that is separate from the default version of Python running on your
+computer. Virtual environments are useful because they allow programmers
+to specify a different version of Python and external packages for
+different projects. In this lab, you will use an external Python package
+called \textbf{PySerial}.
 
-\begin{quote}
-\url{https://www.arduino.cc/en/Main/Software}
-\end{quote}
+At the start of the lab, you will use the \textbf{Anaconda Prompt} to
+create a new virtual environment and then install a couple of Python
+packages into it.
 
-Scroll down the page to the \textbf{{[}Download the Arduino IDE{]}}
-section. Be sure to select: \textbf{{[}Windows ZIP file for non admin
-install{]}} as new software can not be installed on lab computers
-without administrator privileges. You can select \textbf{{[}JUST
-DOWNLOAD{]}} from the donation screen. Extract the downloaded .zip
-folder to your thumb drive or the desktop.
+Open the \textbf{Anaconda Prompt} and type the command below to create a
+new virtual environment called \texttt{pyserial} with Python version
+3.7:
+
+\begin{verbatim}
+conda create -n pyserial python=3.7
+\end{verbatim}
+
+Type \texttt{y} for yes when prompted. Next, you will \emph{activate}
+the \texttt{pyserial} virtual environment. A virtual environment needs
+to be activated before you can install packages into it. Type the
+command below to activate the \texttt{pyserial} virtual environment.
+
+\begin{verbatim}
+conda activate pyserial
+\end{verbatim}
+
+When the \texttt{pyserial} virtual environment is active, you should see
+\texttt{(pyserial)} in parenthesis before the command prompt. Now we
+activated the \texttt{pyserial} environment, we can install packages
+into it. Use the command below to install \textbf{PySerial},
+\textbf{Jupyter}, \textbf{NumPy}, and \textbf{Matplotlib} into the
+environment.
+
+\begin{verbatim}
+conda install pyserial jupyter numpy matplotlib
+\end{verbatim}
+
+Type \texttt{y} for yes when prompted. You can confirm that PySerial was
+installed by opening up the Python REPL, also called the Python prompt
+and typing a few commands. You enter the Python REPL by typing
+\texttt{python} into the \textbf{Anaconda Prompt}. In the code below, do
+not type the \texttt{\textgreater{}\textgreater{}\textgreater{}} prompt
+characters. These characters are shown to indicate the Python prompt,
+not something the user should type.
+
+\begin{verbatim}
+python
+>>> import serial
+>>> serial.__version__
+>>> exit()
+\end{verbatim}
+
+If the command \texttt{serial.\_\_version\_\_} printed out a version
+like \texttt{\textquotesingle{}3.4\textquotesingle{}}, you know that
+\textbf{PySerial} was successfully installed. For the remainder of the
+lab, you can bring up the Python REPL, or Python Prompt, by typing the
+command \texttt{python} into the \textbf{Anaconda Prompt}. You can exit
+out of the Python REPL, or Python Prompt by typing the command
+\texttt{exit()}. Remember you can open Jupyter notebook using the
+\textbf{Anaconda Prompt} by typing the command
+\texttt{jupyter\ notebook}.
 
     \hypertarget{b-wire-an-led-to-the-arduino}{%
 \paragraph{(b) Wire an LED to the
@@ -646,22 +697,12 @@ is a Python package used for serial communication. Before you can use
 \textbf{PySerial} with Python, the \textbf{PySerial} package needs to be
 installed.
 
-The \textbf{PySerial} package can be installed at the \textbf{Anaconda
-Prompt}. Go to the Windows Start Menu and search for \textbf{Anaconda
-Prompt}. Open an \textbf{Anaconda Prompt} window. At the prompt, type
-the following command and hit {[}Enter{]}.
-
-\begin{verbatim}
-conda install pyserial
-\end{verbatim}
-
-Then type \texttt{y} for yes when prompted.
-
-\begin{figure}
-\centering
-\includegraphics{images/anaconda_prompt_install_pyserial.png}
-\caption{Anaconda Prompt showing the command to install PySerial}
-\end{figure}
+We installed PySerial in a previous step, make sure you are in the
+\texttt{pyserial} virtual environment, denoted by \texttt{(pyserial)} in
+parenthesis is shown at the start of the Anaconda Prompt before you
+proceed. If the \texttt{pyserial} environment is not active, you can
+activate it by typing the command \texttt{conda\ activate\ pyserial} in
+the Anaconda Prompt.
 
 At the Anaconda Prompt, type \texttt{python} to enter the Python REPL
 (the Python Prompt).
