@@ -1,15 +1,31 @@
 # ENGR114
 
-GitHub Repo for ENGR114 lab and course materials which are automatically added to each student's JupyterHub server on server startup.
+GitHub Repo for ENGR114 lab and course materials.
 
 ## Contents
 
+ENGR114/ENGR114-Syllabus
+
+ENGR114/ENGR114-Project
+
 ENGR114/ENGR114-Labs/
 
-Lab06 - Taylor Series
+Lab01-Circuit_Python
 
-Lab07 - Web APIs
+Lab02-Data_Types
 
-Lab08 - External Hardware
+Lab03-RLC_Circuit
 
-Lab09 - MicroPython
+Lab03-Sifting_Weather_Data
+
+Lab04-Plotting_Weather_Data
+
+Lab05-Web_APIs
+
+Lab06-Image_Filtering
+
+Lab07-External_Hardware
+
+Lab08-Taylor_Series
+
+Lab09-MicroPython

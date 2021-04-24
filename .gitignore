@@ -257,4 +257,5 @@ package-lock.json
 
 # PyCharm .idea folder
 .idea/
-
+.vscode/
+venv/
